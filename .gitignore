@@ -90,4 +90,4 @@ coverage-final.json
 lcov.info
 
 # dev
-./docs/temp.txt
+data_structure/temp.txt

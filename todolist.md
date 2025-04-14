@@ -1,7 +1,3 @@
-//div[@class='article-typo']//li//a//text()
-
-//div[@class='article-typo']//li//a/@href
-
 # week 01
 ## 数组、链表、调表的基本实现和特性
 + [Java 源码分析（ArrayList）](http://developer.classpath.org/doc/java/util/ArrayList-source.html)

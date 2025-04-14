@@ -5,6 +5,18 @@
 - [visualgo](https://visualgo.net/zh/)
 - [binary-search-tree](http://btv.melezinek.cz/binary-search-tree.html)
 
+## 数据结构目录
+
+- [数组](./data_structure/01-数组/README.md)
+- [链表](./data_structure/02-链表/README.md)
+- [栈](./data_structure/03-栈/README.md)
+- [队列](./data_structure/04-队列/README.md)
+- [集合和字典](./data_structure/05-集合和字典/README.md)
+- [哈希表](./data_structure/06-哈希表/README.md)
+- [树](./data_structure/07-树/README.md)
+- [图](./data_structure/08-图/README.md)
+
+
 ## 树
 
 |难度|问题|解答|
