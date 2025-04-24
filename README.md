@@ -1,9 +1,11 @@
 # leet-code 习题分类
 
-## 数据结构可视化网站
+## 学习网站
 
-- [visualgo](https://visualgo.net/zh/)
-- [binary-search-tree](http://btv.melezinek.cz/binary-search-tree.html)
+- 数据结构可视化
+  - [visualgo](https://visualgo.net/zh/)
+  - [binary-search-tree](http://btv.melezinek.cz/binary-search-tree.html)
+- [Hello, 算法](https://www.hello-algo.com/)
 
 ## 数据结构目录
 
@@ -11,10 +13,10 @@
 - [链表](./data_structure/02-链表/README.md)
 - [栈](./data_structure/03-栈/README.md)
 - [队列](./data_structure/04-队列/README.md)
-- [集合和字典](./data_structure/05-集合和字典/README.md)
-- [哈希表](./data_structure/06-哈希表/README.md)
-- [树](./data_structure/07-树/README.md)
-- [图](./data_structure/08-图/README.md)
+- [集合和字典](data_structure/06-集合和字典/README.md)
+- [哈希表](data_structure/07-哈希表/README.md)
+- [树](data_structure/08-树/README.md)
+- [图](data_structure/09-图/README.md)
 
 
 ## 树
