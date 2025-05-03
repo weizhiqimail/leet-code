@@ -1,427 +1,316 @@
-# 1. Tree
+# 1. 树
 
-树是一种非线性的数据结构，以分层的方式存储数据。树被用来存储具有层级关系的数据，比如文件系统中的文件；树还被用来存储有序列表。
+- **树**：一种非线性的数据结构，以分层的方式存储数据。
+  - 树被用来存储具有层级关系的数据，比如文件系统中的文件；树还被用来存储有序列表。
+- **根结点（root node）**：位于二叉树顶层的结点，没有父结点。
+- **叶结点（leaf node）**：没有子结点的结点，其两个指针均指向 None 。
+- **边（edge）**：连接两个结点的线段，即结点引用（指针）。
+- **结点所在的层（level）**：从顶至底递增，根结点所在层为 1 。
+- **结点的度（degree）**：结点的子结点的数量。
+  - 在二叉树中，度的取值范围是 0、1、2 。
+- **二叉树的高度（height）**：从根结点到最远叶结点所经过的边的数量。
+- **结点的深度（depth）**：从根结点到该结点所经过的边的数量。
+- **结点的高度（height）**：从距离该结点最远的叶结点到该结点所经过的边的数量。
+  - 树的度小于等于二的时候，叫做二叉树。
 
+![树的形式](./images/树的形式.png)
 
-- 树是n个节点的有限集合(n>=0)，当n=0时称为空树，在任一颗非空树中，有且仅有一个根节点。其余结点可分为m(m>=0)个互不相交的有限子集T1，T2，…，Tm，其中，每个T又都是一棵树，并且称为根结点的子树。
+# 2. 二叉树
 
-- 树的基本概念如下：
-  - 双亲、孩子和兄弟：结点的子树的根称为该结点的孩子;相应地，该结点称为其子结点的双亲。具有相同双亲的结点互为兄弟。
-  - 结点的度：一个结点的子树的个数记为该结点的度。
-  - 叶子结点：叶子结点也称为终端结点，指度为0的结点。
-  - 内部结点：度不为0的结点，也称为分支结点或非终端结点。除根结点以外，分支结点也称为内部结点。
-  - 结点的层次：根为第一层，根的孩子为第二层，依此类推，若某结点在第i层，则其孩子结点在第i+1层。
-  - 树的高度：一棵树的最大层数记为树的高度(或深度)。
-  - 有序(无序)树：若将树中结点的各子树看成是从左到右具有次序的，即不能交换则称该树为有序树，否则称为无序树。
+- 树的度小于等于二的时候，叫做二叉树。
 
-树由一组以 _边_ 连接的节点组成，以组织结构图为例。
+## 2.1 树和二叉树的区别
 
-![组织结构图](./images/organizationChart.png)
+- 二叉树中的结点的子树要区分为左子树和右子树。
+- 即使结点只有一棵子树的情况下，也要明确区分出是该子树的左子树还是右子树。
+- 在二叉树中，除叶结点外，其他所有结点都包含子结点和非空子树。
 
-组织结构图是用来描述一个组织的架构。每一个方框都是一个 _节点_ ，连接方框的线叫做 _边_。节点代表了该组织中的各个职位，边描述了各职位间的关系，方框之间没有连线，说明这两个方框没有关系。
+![二叉树的形式](./images/二叉树的形式.png)
 
-![Tree](./images/Tree.png)
+## 2.2 二叉树示例代码
 
-二叉树进行查找效率非常高，而链表查找的效率非常低，为二叉树添加或删除元素效率也很高。
+```c++
+/* 二叉树结点结构体 */
+struct TreeNode {
+    int val;          // 结点值
+    TreeNode *left;   // 左子结点指针
+    TreeNode *right;  // 右子结点指针
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
 
-一棵树最上面的节点称为 _根节点_ ，如果一个节点下面连接多个节点，那么该节点称为 _父节点_ ，它下面的节点称为 _子节点_ 。一个节点可以有 0 个、1 个或多个子节点。没有任何子节点的节点称为 _叶子节点_ 。
+/* 初始化二叉树 */
+// 初始化结点
+TreeNode* n1 = new TreeNode(1);
+TreeNode* n2 = new TreeNode(2);
+TreeNode* n3 = new TreeNode(3);
+TreeNode* n4 = new TreeNode(4);
+TreeNode* n5 = new TreeNode(5);
+// 构建结点之间的引用（指针）
+n1->left = n2;
+n1->right = n3;
+n2->left = n4;
+n2->right = n5;
 
-二叉树是一种特殊的树，它的子节点个数不能超过两个。二叉树具有一些特殊的计算形式，使得对它们的操作非常高校。
-
-沿着一组特定的边，可以从一个节点走到另一个与他不直接相连的节点。从一个节点到另一个节点的这一组边称为 _路径_ ，在图中用虚线表示。以某种特定顺序访问树种所有的节点称为 _树的遍历_ 。
-
-树可以分为几个层次，根节点是第 0 层，他的子节点是第 1 层，子节点的子节点是第 2 层，以此类推。树中任何一层的节点可以都看作是子树的根，该子树包含根节点的子节点，子节点的子节点等。我们定义树的层数就是树的深度。
-
-每个节点都有一个与之相关的值，该值被称为 _键_ 。
-
-一个父节点的两个子节点分别称为 _左节点_ 和 _右节点_ 。
-
-# 2. 实现二叉查找树
-
-二叉查找树原图。
-
-![binarySearchTree](./images/binarySearchTree.png)
-
-## 2.1 二叉树 BinaryTree
-
-二叉树的每个节点的子节点不能超过两个，通常将子节点的个数限定为 2，这样可以写出高效的程序在树中插入、查找和删除数据。
-
-## 2.2 实现二叉查找树
-
-二叉查找树是一种特殊的二叉树，相对较小的值保存在左节点，较大的值保存在右节点中，就比如上面的二叉树图。
-
-```javascript
-export class Node {
-  constructor(value, left, right) {
-    this.value = value;
-    this.left = left;
-    this.right = right;
-  }
-}
-
-class BinarySearchTree {
-  constructor() {
-    this.root = null;
-  }
-
-  // 插入一个值
-  insert(value) {
-    let newNode = new Node(value, null, null);
-
-    if (!this.root) {
-      this.root = newNode;
-    } else {
-      this.insertNode(this.root, newNode);
-    }
-  }
-
-  private insertNode(root, newNode) {
-    if (newNode.value < root.value) {
-      if (!root.left) {
-        root.left = newNode;
-      } else {
-        this.insertNode(root.left, newNode);
-      }
-    } else {
-      if (!root.right) {
-        root.right = newNode;
-      } else {
-        this.insertNode(root.right, newNode);
-      }
-    }
-  }
-
-  // 删除某值
-  remove(value) {
-    if (!this.root) {
-      return 'There is no root node';
-    }
-
-    this.removeNode(this.root, value);
-  }
-
-  private removeNode(root, value) {
-    if (value < root.value) {
-      root.left = this.removeNode(root.left, value);
-      return root;
-    } else if (value > root.value) {
-      root.right = this.removeNode(root.right, value);
-      return root;
-    } else {
-      if (!root.left && !root.right) {
-        root = null;
-        return root;
-      }
-
-      if (root.left) {
-        root = root.left;
-        return root;
-      } else if (root.right) {
-        root = root.right;
-        return root;
-      }
-
-      let minRight = this.findMinNode(root.right);
-      root.value = minRight.value;
-      root.right = this.removeNode(root.right, minRight.value);
-      return root;
-    }
-  }
-
-  private findMinNode(root) {
-    if (!root.left) {
-      return root;
-    } else {
-      return this.findMinNode(root.left);
-    }
-  }
-
-  // 查询定值
-  search(value) {
-    if (!this.root) {
-      return 'There is no root node';
-    }
-    return this.searchNode(this.root, value);
-  }
-
-  private searchNode(root, value) {
-    if (!root) {
-      return false;
-    }
-    if (value < root.value) {
-      return this.searchNodeq(root.left, value);
-    } else if (value > root.value) {
-      return this.searchNode(root.right, value);
-    }
-    console.log('value: ', value);
-    return root;
-  }
-
-  // 先序遍历
-  preOrder(root) {
-    if (!root) {
-      return 'There is no root node';
-    }
-    console.log(root.value);
-    this.preOrder(root.left);
-    this.preOrder(root.right);
-  }
-
-  // 中序遍历
-  inOrder(root) {
-    if (!root) {
-      return 'There is no root node';
-    }
-    this.preOrder(root.left);
-    console.log(root.value);
-    this.preOrder(root.right);
-  }
-
-  // 后序遍历
-  postOrder(root) {
-    if (!root) {
-      return 'There is no root node';
-    }
-    this.preOrder(root.left);
-    this.preOrder(root.right);
-    console.log(root.value);
-  }
-
-  // 树的最小值
-  getMin(){
-    let root = this.root;
-    if (!root) {
-      return;
-    }
-
-    while (!(root.left === null)) {
-      root = root.left;
-    }
-
-    return root.value;
-  }
-
-  // 树的最大值
-  getMax() {
-    let root = this.root;
-    if (!root) {
-      return;
-    }
-
-    while (!(root.right === null)) {
-      root = root.right;
-    }
-
-    return root.value;
-  }
-
-}
-
-export default BinarySearchTree;
+/* 插入与删除结点 */
+TreeNode* P = new TreeNode(0);
+// 在 n1 -> n2 中间插入结点 P
+n1->left = P;
+P->left = n2;
+// 删除结点 P
+n1->left = n2;
+// 释放内存
+delete P;
 ```
 
-## 2.3 遍历二叉查找树
+## 2.3 不同的二叉树
 
-遍历二叉查找树有三种方式，_中序_ 、 _先序_ 和 _后序_ 。
+### 2.3.1 完美二叉树/满二叉树
 
-**先序遍历**：先序遍历先访问根节点，然后以同样方式访问左子树和右子树。先遍历根节点，然后遍历左子树，从上往下遍历左子树根节点，然后遍历叶子节点，左子树遍历完后，遍历右子树。
+- **完美二叉树（perfect binary tree）** 所有层的结点都被完全填满。在完美二叉树中，叶结点的度为 0 ，其余所有结点的度都为 2 ；若树的高度为 h ，则结点总数为 2h+1−1 ，呈现标准的指数级关系，反映了自然界中常见的细胞分裂现象。
 
-**中序遍历**：中序遍历按照节点上的键值，以升序访问 BST 上的所有节点。先遍历左子树，从上往下遍历左子树根节点，然后遍历叶子节点，左子树遍历完后，遍历根节点，最后遍历右子树。
+![完美二叉树（满二叉树）](./images/完美二叉树（满二叉树）.png)
 
-**后序遍历**：后序遍历先访问子节点，从左子树到右子树，再到根节点。先遍历左子树，从上往下遍历左子树根节点，然后遍历叶子节点，左子树遍历完后，遍历右子树，最后遍历根节点。
+### 2.3.2 完全二叉树
 
-二叉查找树原图，跟上边的二叉查找树一样。
+- **完全二叉树（complete binary tree）** 只有最底层的结点未被填满，且最底层结点尽量靠左填充。
 
-![binarySearchTree](./images/binarySearchTree.png)
+![完全二叉树](./images/完全二叉树.png)
 
-### 2.3.1 先序遍历
+### 2.3.3 完满二叉树
 
-![preOrderTraverseBinarySearchTree](./images/preOrderTraverseBinarySearchTree.png)
+- **完满二叉树（full binary tree）** 除了叶结点之外，其余所有结点都有两个子结点。
 
-先序遍历二叉查找树
+![完满二叉树](./images/完满二叉树.png)
 
-```javascript
-class BinarySearchTree {
-  
-  // ...
+### 2.3.4 平衡二叉树
 
-  // 先序遍历
-  preOrder(root) {
-    if (!root) {
-      return 'There is no root node';
-    }
-    console.log(root.value);
-    this.preOrder(root.left);
-    this.preOrder(root.right);
-  }
+- **平衡二叉树（balanced binary tree）** 中任意结点的左子树和右子树的高度之差的绝对值不超过 1 。
+
+![平衡二叉树](./images/平衡二叉树.png)
+
+### 2.3.5 二叉树退化为链表
+
+- 当二叉树的每层结点都被填满时，达到“完美二叉树”；而当所有结点都偏向一侧时，二叉树退化为“链表”。 
+- 完美二叉树是理想情况，可以充分发挥二叉树“分治”的优势。 
+- 链表则是另一个极端，各项操作都变为线性操作，时间复杂度退化至 O(n) 
+
+![二叉树退化为链表](./images/二叉树退化为链表.png)
+
+## 2.4 二叉树的特性
+
+- 在二叉树的第 `i` 层上，最多有 `2i-1` 个结点(i>=1)。 
+- 深度为 `k` 的二叉树最多有 `2k-1` 个结点(i>=1)。 
+- 叶子结点数为 `n0` ，度为 `2` 的结点数为 `n2`，则 `n0=n2+1`。 
+- 如果对一棵有 `n` 个结点的完全二叉树的结点按层序编号（从第1层到 `log2n+1` 层，每层从左到右），则对任一结点 `i(1<=i<=n)`，有： 
+  - 如果 `i=1`，则结点 `i` 无父结点，是二叉树的根；如果 `i>1`，则父结点是 `i/2`。 
+  - 如果 `2i>n`，则结点 `i` 为叶子结点，无左子结点；否则，其右子结点的结点是 `2i`。 
+  - 如果 `2i+1>n`，则结点 `i` 无右子叶点，否则，其右子叶点是结点 `2i+1`。
+
+# 3.二叉树的遍历
+
+## 3.1 前序、中序、后序遍历
+
+- **前序遍历**：先遍历根结点，再遍历左子树，最后遍历右子树。
+- **中序遍历**：先遍历左子树，再遍历根结点，最后遍历右子树。
+- **后序遍历**：先遍历左子树，在遍历右子树，最后遍历根结点。
+
+```c++
+/* 前序遍历 */
+void preOrder(TreeNode *root) {
+    if (root == nullptr)
+        return;
+    // 访问优先级：根结点 -> 左子树 -> 右子树
+    vec.push_back(root->val);
+    preOrder(root->left);
+    preOrder(root->right);
 }
 
-let binarySearchTree = new BinarySearchTree();
-
-const arr = [50, 40, 80, 20, 90, 95, 45, 60];
-
-arr.forEach(item => binarySearchTree.insert(item));
-
-console.log(binarySearchTree.root);
-
-console.log('先序遍历');
-binarySearchTree.preOrder(binarySearchTree.root);
-// [50, 40, 20, 45, 80, 60, 90, 95]
-```
-
-### 2.3.2 中序遍历
-
-![inOrderTraverseBinarySearchTree](./images/inOrderTraverseBinarySearchTree.png)
-
-中序遍历二叉查找树
-
-```javascript
-class BinarySearchTree {
-  
-  // ...
-
-  // 中序遍历
-  inOrder(root) {
-    if (!root) {
-      return 'There is no root node';
-    }
-    this.preOrder(root.left);
-    console.log(root.value);
-    this.preOrder(root.right);
-  }
+/* 中序遍历 */
+void inOrder(TreeNode *root) {
+    if (root == nullptr)
+        return;
+    // 访问优先级：左子树 -> 根结点 -> 右子树
+    inOrder(root->left);
+    vec.push_back(root->val);
+    inOrder(root->right);
 }
 
-let binarySearchTree = new BinarySearchTree();
-
-const arr = [50, 40, 80, 20, 90, 95, 45, 60];
-
-arr.forEach(item => binarySearchTree.insert(item));
-
-console.log(binarySearchTree.root);
-
-console.log('中序遍历');
-binarySearchTree.inOrder(binarySearchTree.root);
-// [40, 20, 45, 50, 80, 60, 90, 95]
-```
-
-### 2.3.3 后序遍历
-
-![postOrderTraverseBinarySearchTree](./images/postOrderTraverseBinarySearchTree.png)
-
-后序遍历二叉查找树
-
-```javascript
-class BinarySearchTree {
-  
-  // ...
-
-  // 后序遍历
-  postOrder(root) {
-    if (!root) {
-      return 'There is no root node';
-    }
-    this.preOrder(root.left);
-    this.preOrder(root.right);
-    console.log(root.value);
-  }
+/* 后序遍历 */
+void postOrder(TreeNode *root) {
+    if (root == nullptr)
+        return;
+    // 访问优先级：左子树 -> 右子树 -> 根结点
+    postOrder(root->left);
+    postOrder(root->right);
+    vec.push_back(root->val);
 }
-
-let binarySearchTree = new BinarySearchTree();
-
-const arr = [50, 40, 80, 20, 90, 95, 45, 60];
-
-arr.forEach(item => binarySearchTree.insert(item));
-
-console.log(binarySearchTree.root);
-
-console.log('后序遍历');
-binarySearchTree.postOrder(binarySearchTree.root);
-// [40, 20, 45, 80, 60, 90, 95, 50]
 ```
 
-## 2.4 查找最大最小值定值
+![深度优先遍历二叉树](./images/深度优先遍历二叉树.png)
 
-```javascript
-class BinarySearchTree {
-  
-  ...
+## 3.2 普通二叉树遍历示例
 
-  // 树的最小值
-  getMin() {
-    let root = this.root;
+```text
+       1
+      / \
+     2   3
+    / \   \
+   4   5   6
+      /
+     7
+      \
+       8
 
-    if (!root) {
-      return;
-    }
-
-    while (!(root.left === null)) {
-      root = root.left;
-    }
-
-    return root.value;
-  }
-  
-    // 树的最大值
-  getMax() {
-    let root = this.root;
-
-    if (!root) {
-      return;
-    }
-
-    while (!(root.right === null)) {
-      root = root.right;
-    }
-
-    return root.value;
-  }
-}
-
-let binarySearchTree = new BinarySearchTree();
-
-const arr = [50, 40, 80, 20, 90, 95, 45, 60];
-
-arr.forEach(item => binarySearchTree.insert(item));
-
-console.log(binarySearchTree.root);
-
-console.log('min: ', binarySearchTree.getMin());
-console.log('max: ', binarySearchTree.getMax());
-// [40, 20, 45, 80, 60, 90, 95, 50]
+前序：1, 2, 4, 5, 7, 8, 3, 6
+中序：4, 2, 7, 8, 5, 1, 3, 6
+后序：4, 8, 7, 5, 2, 6, 3, 1
+层序：1, 2, 3, 4, 5, 6, 7, 8
 ```
 
-## 2.5 翻转二叉查找树
 
-![inverseBinarySearchTree](./images/inverseBinarySearchTree.png)
+# 4. 二叉排序/查找树（Binary Search Tree, BST）
 
-```javascript
-class BinarySearchTree {
-  
-  ...
+- **左子树小于根，右子树大于根。**
+- **特点** 
+  - 二叉查找树中的中序排列为从小打到排列的序列。 
+  - 值最小的结点无左子树，值最大的结点无右子树。 
+  - 每一层从左到右进行遍历的序列为从小到大排列的序列。
 
-  invertTree(node = this.root) {
-    if (!node) {
-       return false;
-    }
-    this.invertTree(node.left);
-    this.invertTree(node.right);
-    this.exchangeNode(node);
-  }
-  
-  private exchangeNode(node) {
-    let tempNode = node.left;
-    node.left = node.right;
-    node.right = tempNode;
-  }
-}
+```text
+         10
+        /  \
+       5    15
+        \   / \
+         7 12  18
+        /       \
+       6        20
 
-let binarySearchTree = new BinarySearchTree();
-
-const arr = [50, 40, 80, 20, 90, 95, 45, 60];
-
-arr.forEach(item => binarySearchTree.insert(item));
-
-binarySearchTree.invertTree(binarySearchTree.root);
-
-console.log(binarySearchTree.root);
+前序：10, 5, 7, 6, 15, 12, 18, 20
+中序：5, 6, 7, 10, 12, 15, 18, 20
+后序：6, 7, 5, 12, 20, 18, 15, 10
 ```
+
+# 5. 最优二叉树/哈夫曼树
+
+## 5.1 哈夫曼树基本概念
+
+- **树的路径长度**：从树根到树中每个**结点**的路径长度之和。 
+- **权**：在一些应用中，赋予树中结点的一个有某种意义的实数。 
+- **带权路径长度**：结点到树根之间的**路径长度**与该**结点上权的乘积**。 
+- **树的带权路径长度（树的代价）**：树中所有叶结点的**带权路径长度之和**。 
+- **构建哈夫曼树**： 
+  - 构造森林全是根。 
+  - 选用两小造新树。 
+  - 删除两小添新人。 
+  - 重复2、3剩单根。 
+  - 左侧为小的值，右侧为大的值。
+- **解析编码**：依据编码依次匹配，匹配到一个字符，就记录字符，使用剩余的字符继续匹配，直到匹配完毕。
+
+## 5.2 构建哈夫曼树的例题1：对 `ABACCDA` 进行编码
+
+- **例题：假设要传送的字符为：`ABACCDA`，目标：将这7个字符转换成由0、1构成的编码**。
+
+### 5.2.1 方法1：使用等长的编码。
+
+- **对应关系**：`A->00`，`B->01`，`C->10`，`D->11`。
+- **结果**：`00010010101100`
+- **缺点**：字符数量多，每一个字母的编码长度就会很长，总体的编码就很长，
+
+### 5.2.2 方法2：使用不等长的编码。
+
+- **对应关系**：`A->0`，`B->00`，`C->1`，`D->01`。 
+- **结果**：`000011010` 
+- **缺点**：可以编码，但是无法解码。 
+- **设计不定长编码的时候，一定不能有重码，一个编码不能是其他码的前缀，这样才可以解码。**
+
+### 5.2.3 方法3：构造哈夫曼树（节省空间、没有重码）
+
+- 统计字符集中，每个字符在电文中出现的平均概率。（概率越大，要求编码越短。）
+- 将每个字符的概率值作为权值，构造哈夫曼树。（利用哈夫曼树的特点：权值越大的叶子离根越近；概率大的结点，路径越短。）
+- 在哈夫曼树的每个左分支标0，右分支标1，把从根到每个叶子结点路径上的标号连接起来，作为该叶子代表的字符编码，即哈夫曼树。
+
+```text
+    [ABDC:7]
+    /     \
+[A:3]     [BDC:4]
+        /     \
+    [C:2]     [BD:2]
+              /     \
+          [B:1]     [D:1]
+```
+- **编码结果**：`0 110 0 10 10 111 0` → `0110010101110`
+
+## 5.3 构建哈夫曼树的例题2：对 `D={m, o, v, i, e}`，字符出现频率为 `w={2, 4, 2, 3, 3}` 构建哈夫曼树
+
+### 5.3.1 开始
+
+- 这些节点**按频率排序**（从小到大，频率相同时任意顺序）：节点列表：`[(m, 2), (v, 2), (i, 3), (e, 3), (o, 4)]`。
+- 哈夫曼树的构建过程是**将频率最小的两个节点合并为一个新节点，新节点的频率为两者之和，然后将新节点放回列表，重新排序，重复此过程直到只剩一个节点**。
+
+### 5.3.2 迭代 1：合并 `(m, 2)` 和 `(v, 2)` 为新节点
+
+- 选择频率最小的两个节点：(m, 2) 和 (v, 2)
+- 合并为新节点：N1 = (m + v, 2 + 2 = 4)
+- 更新节点列表：[(i, 3), (e, 3), (o, 4), (N1, 4)]
+- 排序：[(i, 3), (e, 3), (o, 4), (N1, 4)]
+
+### 5.3.3 迭代 2：合并 `(i, 3)` 和 `(e, 3)` 为新节点
+
+- 选择频率最小的两个节点：(i, 3) 和 (e, 3)
+- 合并为新节点：N2 = (i + e, 3 + 3 = 6)
+- 更新节点列表：[(o, 4), (N1, 4), (N2, 6)]
+- 排序：[(o, 4), (N1, 4), (N2, 6)]
+
+### 5.3.4 迭代 3：合并 `(o, 4)` 和 `(N1, 4)` 为新节点
+
+- 选择频率最小的两个节点：(o, 4) 和 (N1, 4)
+- 合并为新节点：N3 = (o + N1, 4 + 4 = 8)
+- 更新节点列表：[(N2, 6), (N3, 8)]
+- 排序：[(N2, 6), (N3, 8)]
+
+### 5.3.5 迭代 4：合并 `(N2, 6)` 和 `(N3, 8)` 为新节点
+
+- 选择仅剩的两个节点：(N2, 6) 和 (N3, 8)
+- 合并为新节点：N4 = (N2 + N3, 6 + 8 = 14)
+- 更新节点列表：[(N4, 14)]
+- 此时，只剩一个节点，哈夫曼树构建完成，根节点为 N4，频率为 14。
+
+```text
+           N4(14)
+          /      \
+       N2(6)     N3(8)
+       /  \      /  \
+     i(3) e(3) o(4) N1(4)
+                    /  \
+                  m(2) v(2)
+```
+
+### 5.3.6 构建完成，开始分配编码
+
+- 从根节点开始，**左子树分配 0，右子树分配 1**，遍历到每个叶子节点，得到每个字符的**哈夫曼编码**： 
+- m：从根 N4 → N3 (右, 1) → N1 (右, 1) → m (左, 0) → 编码：110 
+- v：从根 N4 → N3 (右, 1) → N1 (右, 1) → v (右, 1) → 编码：111 
+- o：从根 N4 → N3 (右, 1) → o (左, 0) → 编码：10 
+- i：从根 N4 → N2 (左, 0) → i (左, 0) → 编码：00 
+- e：从根 N4 → N2 (左, 0) → e (右, 1) → 编码：01
+
+### 5.3.7 编码结果
+
+- m: 110 
+- o: 10
+- v: 111 
+- i: 00 
+- e: 01
+
+### 5.3.8 加权路径长度（WPL）
+
+- **WPL = Σ(频率 × 编码长度)**
+- m: 2 × 3 = 6 
+- o: 4 × 2 = 8 
+- v: 2 × 3 = 6 
+- i: 3 × 2 = 6 
+- e: 3 × 2 = 6 
+- **总和**：6 + 8 + 6 + 6 + 6 = 32
+
+
+
