@@ -22,10 +22,10 @@
 
 一般来说，我们都会基于数组来实现一个栈，这样比较方便快捷，但是我们会基于数组再封装一层，不直接使用数组作为栈。
 
-![Stack JavaScript](./Stack.js)
-
 + 先进后出，后进先出
 + 只能操作栈顶元素
+
+![Stack JavaScript](./Stack.js)
 
 # 3. 栈的应用
 ## 3.1 数制间的转换
@@ -116,7 +116,7 @@ console.log(isPalindrome(word));
 
 ## 3.4 计算阶乘
 
-```javascript
+```typescript
 function factorial(n: number) {
   let stack = new Stack<number>();
 

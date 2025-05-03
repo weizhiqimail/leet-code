@@ -9,14 +9,19 @@
 
 ## 数据结构目录
 
-- [数组](./data_structure/01-数组/README.md)
-- [链表](./data_structure/02-链表/README.md)
-- [栈](./data_structure/03-栈/README.md)
-- [队列](./data_structure/04-队列/README.md)
-- [集合和字典](data_structure/06-集合和字典/README.md)
-- [哈希表](data_structure/07-哈希表/README.md)
-- [树](data_structure/08-树/README.md)
-- [图](data_structure/09-图/README.md)
+- [数据结构](./data_structure/00-数据结构/README.md)
+- [栈](./data_structure/01-栈/README.md)
+- [队列](data_structure/02-队列/README.md)
+- [数组](./data_structure/03-数组/README.md)
+- [链表](data_structure/04-链表/README.md)
+- [集合和字典](data_structure/05-集合和字典/README.md)
+- [哈希表](data_structure/06-哈希表/README.md)
+- [树](data_structure/07-树/README.md)
+- [图](data_structure/08-图/README.md)
+- [堆](data_structure/10-堆/README.md)
+- [其他数据结构](data_structure/10-其他数据结构)
+  - [字符串](./data_structure/10-其他数据结构/字符串/README.md)
+  - [矩阵](./data_structure/10-其他数据结构/矩阵/README.md)
 
 
 ## 树

@@ -4,7 +4,7 @@
 
 ## 1.1 数组的定义
 
-数组是一种非常常见的**线性数据结构**，具有**一定的长度，连续内存，存储相同类型的元素，每个元素都有对应的索引**
+- 数组是一种非常常见的**线性数据结构**，具有**一定的长度，连续内存，存储相同类型的元素，每个元素都有对应的索引**
 ，可以通过索引对元素进行访问操作。
 
 ![数组定义与存储方式](./images/数组定义与存储方式.png)
@@ -55,87 +55,16 @@ nums[9] = 10, memory address = 0x62ff08
 
 ## 1.3 数组的优缺点
 
-- 优点：空间效率高，支持随机访问，缓存局部性。
-- 缺点：插入与删除效率低，长度不可变，空间昂费。
+- **优点**：空间效率高，支持随机访问，缓存局部性。
+- **缺点**：插入与删除效率低，长度不可变，空间昂费。
 
-## 1.4 数据典型应用
+## 1.4 数组典型应用
 
 - 随机访问
 - 排序和搜索
 - 查找表
 - 机器学习
 - 数据结构实现
-
-# 矩阵
-
-- 特殊矩阵：上三角矩阵、下三角矩阵、对角矩阵、对称矩阵、反对称矩阵、稀疏矩阵。
-- 矩阵相关文档：https://csgraduates.com/data_structure/array/matrix/
-
-<table>
-  <tr>
-    <th>上三角矩阵</th>
-    <th>下三角矩阵</th>
-    <th>对角矩阵</th>
-    <th>对称矩阵、反对称矩阵</th>
-    <th>稀疏矩阵</th>
-</tr>
-<tr>
-  <td>
-上三角矩阵是是一个方阵，其主对角线及其以上（左上部分）的所有元素都不为零，而主对角线以下的所有元素都为常数。
-<img src="./images/上三角矩阵.png" alt="上三角矩阵">
-</td>
-
-<td>
-下三角矩阵也是一个方阵，其主对角线及其以下（右下部分）的所有元素都不为零，而主对角线以上的所有元素都为零。
-<img src="./images/下三角矩阵.png" alt="下三角矩阵">
-</td>
-
-<td>
-矩阵中的非零元素，都集中在以主对角线为中心的带状区域中。
-<img src="./images/对角矩阵.png" alt="对角矩阵">
-</td>
-
-<td>
-<p>对于矩阵 <strong>A</strong> 中的任意一个元素 <em>a<sub>i,j</sub></em>，都有：</p>
-<p><em>a<sub>i,j</sub> = a<sub>j,i</sub></em>。</p>
-
-<p>如果一个 <strong>n × n</strong> 的矩阵 <strong>A<sub>n×n</sub></strong> 中的元素满足：</p>
-<p><em>a<sub>i,j</sub> = -a<sub>j,i</sub></em>，</p>
-<p>那么称其为<strong>反对称矩阵</strong>。</p>
-
-
-<img src="./images/对称矩阵.png" alt="对称矩阵">
-
-<img src="./images/反对称矩阵.png" alt="反对称矩阵">
-
-</td>
-
-<td>
-稀疏矩阵中非零元素的个数相比矩阵元素的总个数非常少，且非零元素分布没有规律。
-
-<p>对于稀疏矩阵，存储非零元素时，必须同时存储其位置（行号和列号），</p>
-<p>所以三元组 <em>(i, j, a<sub>i,j</sub>)</em> 可以唯一确定矩阵中的一个元素。</p>
-
-<img src="./images/稀疏矩阵.png" alt="稀疏矩阵">
-
-</td>
-</tr>
-</table>
-
-- <p>矩阵的乘法：设矩阵 <strong>A</strong> 为 <em>m × p</em> 的矩阵，矩阵 <strong>B</strong> 为 <em>p × n</em> 的矩阵，</p><p>矩阵 <strong>A</strong> 与矩阵 <strong>B</strong> 相乘，可以得到一个 <em>m × n</em> 的矩阵 <strong>C</strong>，记作 <strong>C = AB</strong>。</p>
-- <p>计算方式：矩阵 <strong>A</strong> 的第 <em>i</em> 行与矩阵 <strong>B</strong> 的第 <em>j</em> 列相乘并求和，</p><p>得到矩阵 <strong>C</strong> 中的元素 <em>C<sub>i,j</sub></em>。</p>
-
-<table>
-<tr>
-  <td>
-<img src="./images/矩阵乘法1.png" alt="矩阵乘法1">
-</td>
-  <td>
-<img src="./images/矩阵乘法2.png" alt="矩阵乘法2">
-
-</td>
-</tr>
-</table>
 
 # 2. 思考两个问题
 
