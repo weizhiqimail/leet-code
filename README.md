@@ -23,6 +23,14 @@
   - [字符串](./data_structure/10-其他数据结构/字符串/README.md)
   - [矩阵](./data_structure/10-其他数据结构/矩阵/README.md)
 
+## 算法
+
+- [查找算法](./algorithm/01-查找算法/README.md)
+- [排序算法](./algorithm/02-排序算法/README.md)
+- [回溯法](./algorithm/03-回溯法/README.md)
+- [动态规划](./algorithm/04-动态规划/README.md)
+- [贪心法](./algorithm/05-贪心法/README.md)
+- [分治法](./algorithm/06-分治法/README.md)
 
 ## 树
 
