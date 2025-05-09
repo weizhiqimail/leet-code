@@ -3,8 +3,8 @@
 ## 学习网站
 
 - 数据结构可视化
-  - [visualgo](https://visualgo.net/zh/)
-  - [洛杉矶大学数据结构可视化](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
+    - [visualgo](https://visualgo.net/zh/)
+    - [洛杉矶大学数据结构可视化](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
 - [Hello, 算法](https://www.hello-algo.com/)
 
 ## 数据结构目录

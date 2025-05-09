@@ -90,4 +90,5 @@ coverage-final.json
 lcov.info
 
 # dev
-data_structure/temp.txt
+cmake-build-debug
+build
