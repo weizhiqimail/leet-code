@@ -92,3 +92,4 @@ lcov.info
 # dev
 cmake-build-debug
 build
+*.exe
