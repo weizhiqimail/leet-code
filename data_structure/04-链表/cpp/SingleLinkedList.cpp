@@ -2,12 +2,12 @@
 #include <stdexcept>
 #include <functional>
 
-using namespace std; // Ê¹ÓÃÃüÃû¿Õ¼ä std
+using namespace std; // ä½¿ç”¨å‘½åç©ºé—´ std
 
 template<typename T>
 class SingleLinkedList {
 private:
-    // ÄÚ²¿½ÚµãÀà
+    // å†…éƒ¨èŠ‚ç‚¹ç±»
     struct Node {
         T data;
         Node *next;
@@ -21,14 +21,14 @@ private:
     int capacity;
 
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     explicit SingleLinkedList(int capacity) : head(nullptr), size(0), capacity(capacity) {
         if (capacity <= 0) {
             throw invalid_argument("Capacity must be positive");
         }
     }
 
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     ~SingleLinkedList() {
         while (head != nullptr) {
             Node *temp = head;
@@ -37,17 +37,17 @@ public:
         }
     }
 
-    // »ñÈ¡Á´±íÈİÁ¿
+    // è·å–é“¾è¡¨å®¹é‡
     int getCapacity() const {
         return capacity;
     }
 
-    // »ñÈ¡µ±Ç°ÔªËØÊıÁ¿
+    // è·å–å½“å‰å…ƒç´ æ•°é‡
     int getSize() const {
         return size;
     }
 
-    // »ñÈ¡Í·ÔªËØ
+    // è·å–å¤´å…ƒç´ 
     T getFirst() const {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -55,7 +55,7 @@ public:
         return head->data;
     }
 
-    // »ñÈ¡Î²ÔªËØ
+    // è·å–å°¾å…ƒç´ 
     T getLast() const {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -67,7 +67,7 @@ public:
         return current->data;
     }
 
-    // Î²²¿Ìí¼ÓÔªËØ
+    // å°¾éƒ¨æ·»åŠ å…ƒç´ 
     void addLast(const T &data) {
         if (size >= capacity) {
             throw runtime_error("List is full");
@@ -85,7 +85,7 @@ public:
         size++;
     }
 
-    // Ê×²¿Ìí¼ÓÔªËØ
+    // é¦–éƒ¨æ·»åŠ å…ƒç´ 
     void addFirst(const T &data) {
         if (size >= capacity) {
             throw runtime_error("List is full");
@@ -96,12 +96,12 @@ public:
         size++;
     }
 
-    // Ìí¼ÓÔªËØ£¨Ä¬ÈÏÎ²²¿Ìí¼Ó£©
+    // æ·»åŠ å…ƒç´ ï¼ˆé»˜è®¤å°¾éƒ¨æ·»åŠ ï¼‰
     void add(const T &data) {
         addLast(data);
     }
 
-    // É¾³ıÔªËØ£¨É¾³ıÊ×¸öÆ¥ÅäµÄÔªËØ£©
+    // åˆ é™¤å…ƒç´ ï¼ˆåˆ é™¤é¦–ä¸ªåŒ¹é…çš„å…ƒç´ ï¼‰
     bool remove(const T &data) {
         if (size == 0) {
             return false;
@@ -127,7 +127,7 @@ public:
         return false;
     }
 
-    // É¾³ıÊ×ÔªËØ
+    // åˆ é™¤é¦–å…ƒç´ 
     T removeFirst() {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -140,7 +140,7 @@ public:
         return data;
     }
 
-    // É¾³ıÎ²ÔªËØ
+    // åˆ é™¤å°¾å…ƒç´ 
     T removeLast() {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -163,13 +163,13 @@ public:
         return data;
     }
 
-    // ±éÀúÁ´±í²¢Êä³öËùÓĞÔªËØ
+    // éå†é“¾è¡¨å¹¶è¾“å‡ºæ‰€æœ‰å…ƒç´ 
     void traverse() const {
         Node *current = head;
         while (current != nullptr) {
-            // Êä³öµ±Ç°½ÚµãµÄÖµ
+            // è¾“å‡ºå½“å‰èŠ‚ç‚¹çš„å€¼
             cout << current->data << " ";
-            // ÒÆ¶¯µ½ÏÂÒ»¸ö½Úµã
+            // ç§»åŠ¨åˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
             current = current->next;
         }
         cout << endl;
@@ -177,63 +177,63 @@ public:
     }
 };
 
-// ²âÊÔÊ¾Àı
+// æµ‹è¯•ç¤ºä¾‹
 int main() {
-    // ´´½¨Ò»¸öÈİÁ¿Îª 5 µÄÁ´±í
+    // åˆ›å»ºä¸€ä¸ªå®¹é‡ä¸º 5 çš„é“¾è¡¨
     SingleLinkedList<int> list(5);
 
-    // Ìí¼ÓÔªËØµ½Á´±í
-    list.add(1);  // Ìí¼Ó 1
-    list.add(2);  // Ìí¼Ó 2
-    list.add(3);  // Ìí¼Ó 3
-    list.add(4);  // Ìí¼Ó 4
-    list.add(5);  // Ìí¼Ó 5
+    // æ·»åŠ å…ƒç´ åˆ°é“¾è¡¨
+    list.add(1);  // æ·»åŠ  1
+    list.add(2);  // æ·»åŠ  2
+    list.add(3);  // æ·»åŠ  3
+    list.add(4);  // æ·»åŠ  4
+    list.add(5);  // æ·»åŠ  5
 
-    // Êä³öÁ´±íÄÚÈİ
-    cout << "Á´±íÄÚÈİ£º";
-    list.traverse();  // Êä³ö 1 2 3 4 5
+    // è¾“å‡ºé“¾è¡¨å†…å®¹
+    cout << "é“¾è¡¨å†…å®¹ï¼š";
+    list.traverse();  // è¾“å‡º 1 2 3 4 5
 
-    // É¾³ıÍ·²¿ÔªËØ
+    // åˆ é™¤å¤´éƒ¨å…ƒç´ 
     list.removeFirst();
-    cout << "É¾³ıÍ·²¿ÔªËØºóÁ´±íÄÚÈİ£º";
-    list.traverse();  // Êä³ö 2 3 4 5
+    cout << "åˆ é™¤å¤´éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š";
+    list.traverse();  // è¾“å‡º 2 3 4 5
 
-    // É¾³ıÎ²²¿ÔªËØ
+    // åˆ é™¤å°¾éƒ¨å…ƒç´ 
     list.removeLast();
-    cout << "É¾³ıÎ²²¿ÔªËØºóÁ´±íÄÚÈİ£º";
-    list.traverse();  // Êä³ö 2 3 4
+    cout << "åˆ é™¤å°¾éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š";
+    list.traverse();  // è¾“å‡º 2 3 4
 
-    // É¾³ıÔªËØ 3
+    // åˆ é™¤å…ƒç´  3
     list.remove(3);
-    cout << "É¾³ıÔªËØ 3 ºóÁ´±íÄÚÈİ£º";
-    list.traverse();  // Êä³ö 2 4
+    cout << "åˆ é™¤å…ƒç´  3 åé“¾è¡¨å†…å®¹ï¼š";
+    list.traverse();  // è¾“å‡º 2 4
 
-    // Ìí¼ÓÔªËØµ½Á´±í
+    // æ·»åŠ å…ƒç´ åˆ°é“¾è¡¨
     list.add(6);
-    cout << "Ìí¼ÓÔªËØ 6 ºóÁ´±íÄÚÈİ£º";
-    list.traverse();  // Êä³ö 2 4 6
+    cout << "æ·»åŠ å…ƒç´  6 åé“¾è¡¨å†…å®¹ï¼š";
+    list.traverse();  // è¾“å‡º 2 4 6
 
-    // ³¢ÊÔ·ÃÎÊÍ·²¿ÔªËØ
-    cout << "Í·²¿ÔªËØ£º";
-    cout << list.getFirst() << endl;  // Êä³ö 2
+    // å°è¯•è®¿é—®å¤´éƒ¨å…ƒç´ 
+    cout << "å¤´éƒ¨å…ƒç´ ï¼š";
+    cout << list.getFirst() << endl;  // è¾“å‡º 2
 
-    // ³¢ÊÔ·ÃÎÊÎ²²¿ÔªËØ
-    cout << "Î²²¿ÔªËØ£º";
-    cout << list.getLast() << endl;  // Êä³ö 6
+    // å°è¯•è®¿é—®å°¾éƒ¨å…ƒç´ 
+    cout << "å°¾éƒ¨å…ƒç´ ï¼š";
+    cout << list.getLast() << endl;  // è¾“å‡º 6
 
     return 0;
 }
 /*
-Á´±íÄÚÈİ£º1 2 3 4 5
+é“¾è¡¨å†…å®¹ï¼š1 2 3 4 5
 
-É¾³ıÍ·²¿ÔªËØºóÁ´±íÄÚÈİ£º2 3 4 5
+åˆ é™¤å¤´éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š2 3 4 5
 
-É¾³ıÎ²²¿ÔªËØºóÁ´±íÄÚÈİ£º2 3 4
+åˆ é™¤å°¾éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š2 3 4
 
-É¾³ıÔªËØ 3 ºóÁ´±íÄÚÈİ£º2 4
+åˆ é™¤å…ƒç´  3 åé“¾è¡¨å†…å®¹ï¼š2 4
 
-Ìí¼ÓÔªËØ 6 ºóÁ´±íÄÚÈİ£º2 4 6
+æ·»åŠ å…ƒç´  6 åé“¾è¡¨å†…å®¹ï¼š2 4 6
 
-Í·²¿ÔªËØ£º2
-Î²²¿ÔªËØ£º6
+å¤´éƒ¨å…ƒç´ ï¼š2
+å°¾éƒ¨å…ƒç´ ï¼š6
  */

@@ -6,7 +6,7 @@ using namespace std;
 template<typename T>
 class DoubleLinkedList {
 private:
-    // ÄÚ²¿½ÚµãÀà£¬°üº¬Ç°Çı½Úµã¡¢Êı¾İÒÔ¼°ºó¼Ì½Úµã
+    // å†…éƒ¨èŠ‚ç‚¹ç±»ï¼ŒåŒ…å«å‰é©±èŠ‚ç‚¹ã€æ•°æ®ä»¥åŠåç»§èŠ‚ç‚¹
     struct Node {
         T data;
         Node* prev;
@@ -15,20 +15,20 @@ private:
         Node(const T& data) : data(data), prev(nullptr), next(nullptr) {}
     };
 
-    Node* head;  // Á´±íÍ·½Úµã
-    Node* tail;  // Á´±íÎ²½Úµã
-    int size;    // µ±Ç°Á´±íÔªËØÊıÁ¿
-    int capacity; // Á´±íµÄ×î´óÈİÁ¿
+    Node* head;  // é“¾è¡¨å¤´èŠ‚ç‚¹
+    Node* tail;  // é“¾è¡¨å°¾èŠ‚ç‚¹
+    int size;    // å½“å‰é“¾è¡¨å…ƒç´ æ•°é‡
+    int capacity; // é“¾è¡¨çš„æœ€å¤§å®¹é‡
 
 public:
-    // ¹¹Ôìº¯Êı£¬³õÊ¼»¯¿ÕÁ´±í²¢ÉèÖÃ×î´óÈİÁ¿
+    // æ„é€ å‡½æ•°ï¼Œåˆå§‹åŒ–ç©ºé“¾è¡¨å¹¶è®¾ç½®æœ€å¤§å®¹é‡
     explicit DoubleLinkedList(int capacity) : head(nullptr), tail(nullptr), size(0), capacity(capacity) {
         if (capacity <= 0) {
-            throw invalid_argument("Capacity must be positive");  // ÈİÁ¿±ØĞë´óÓÚ0
+            throw invalid_argument("Capacity must be positive");  // å®¹é‡å¿…é¡»å¤§äº0
         }
     }
 
-    // Îö¹¹º¯Êı£¬ÊÍ·ÅÁ´±íÖĞµÄËùÓĞ½Úµã
+    // ææ„å‡½æ•°ï¼Œé‡Šæ”¾é“¾è¡¨ä¸­çš„æ‰€æœ‰èŠ‚ç‚¹
     ~DoubleLinkedList() {
         while (head != nullptr) {
             Node* temp = head;
@@ -38,17 +38,17 @@ public:
         tail = nullptr;
     }
 
-    // »ñÈ¡Á´±íÈİÁ¿
+    // è·å–é“¾è¡¨å®¹é‡
     int getCapacity() const {
         return capacity;
     }
 
-    // »ñÈ¡µ±Ç°Á´±íÔªËØÊıÁ¿
+    // è·å–å½“å‰é“¾è¡¨å…ƒç´ æ•°é‡
     int getSize() const {
         return size;
     }
 
-    // »ñÈ¡Í·ÔªËØ£¬ÈôÁ´±íÎª¿ÕÔòÅ×³öÒì³£
+    // è·å–å¤´å…ƒç´ ï¼Œè‹¥é“¾è¡¨ä¸ºç©ºåˆ™æŠ›å‡ºå¼‚å¸¸
     T getFirst() const {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -56,7 +56,7 @@ public:
         return head->data;
     }
 
-    // »ñÈ¡Î²ÔªËØ£¬ÈôÁ´±íÎª¿ÕÔòÅ×³öÒì³£
+    // è·å–å°¾å…ƒç´ ï¼Œè‹¥é“¾è¡¨ä¸ºç©ºåˆ™æŠ›å‡ºå¼‚å¸¸
     T getLast() const {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -64,15 +64,15 @@ public:
         return tail->data;
     }
 
-    // Î²²¿Ìí¼ÓÔªËØ
+    // å°¾éƒ¨æ·»åŠ å…ƒç´ 
     void addLast(const T& data) {
         if (size >= capacity) {
             throw runtime_error("List is full");
         }
-        Node* newNode = new Node(data);  // ´´½¨ĞÂ½Úµã
-        if (size == 0) {  // Èç¹ûÁ´±íÎª¿Õ£¬ĞÂ½Úµã³ÉÎªÍ·ºÍÎ²
+        Node* newNode = new Node(data);  // åˆ›å»ºæ–°èŠ‚ç‚¹
+        if (size == 0) {  // å¦‚æœé“¾è¡¨ä¸ºç©ºï¼Œæ–°èŠ‚ç‚¹æˆä¸ºå¤´å’Œå°¾
             head = tail = newNode;
-        } else {  // ·ñÔò£¬²åÈëµ½Î²²¿
+        } else {  // å¦åˆ™ï¼Œæ’å…¥åˆ°å°¾éƒ¨
             newNode->prev = tail;
             tail->next = newNode;
             tail = newNode;
@@ -80,15 +80,15 @@ public:
         size++;
     }
 
-    // Ê×²¿Ìí¼ÓÔªËØ
+    // é¦–éƒ¨æ·»åŠ å…ƒç´ 
     void addFirst(const T& data) {
         if (size >= capacity) {
             throw runtime_error("List is full");
         }
-        Node* newNode = new Node(data);  // ´´½¨ĞÂ½Úµã
-        if (size == 0) {  // Èç¹ûÁ´±íÎª¿Õ£¬ĞÂ½Úµã³ÉÎªÍ·ºÍÎ²
+        Node* newNode = new Node(data);  // åˆ›å»ºæ–°èŠ‚ç‚¹
+        if (size == 0) {  // å¦‚æœé“¾è¡¨ä¸ºç©ºï¼Œæ–°èŠ‚ç‚¹æˆä¸ºå¤´å’Œå°¾
             head = tail = newNode;
-        } else {  // ·ñÔò£¬²åÈëµ½Í·²¿
+        } else {  // å¦åˆ™ï¼Œæ’å…¥åˆ°å¤´éƒ¨
             newNode->next = head;
             head->prev = newNode;
             head = newNode;
@@ -96,43 +96,43 @@ public:
         size++;
     }
 
-    // Ä¬ÈÏÎ²²¿Ìí¼ÓÔªËØ
+    // é»˜è®¤å°¾éƒ¨æ·»åŠ å…ƒç´ 
     void add(const T& data) {
         addLast(data);
     }
 
-    // É¾³ıÔªËØ£¨É¾³ıÊ×¸öÆ¥ÅäµÄÔªËØ£©
+    // åˆ é™¤å…ƒç´ ï¼ˆåˆ é™¤é¦–ä¸ªåŒ¹é…çš„å…ƒç´ ï¼‰
     bool remove(const T& data) {
         if (size == 0) {
-            return false;  // Á´±íÎª¿Õ£¬ÎŞ·¨É¾³ı
+            return false;  // é“¾è¡¨ä¸ºç©ºï¼Œæ— æ³•åˆ é™¤
         }
         Node* current = head;
         while (current != nullptr) {
-            if (current->data == data) {  // ÕÒµ½Æ¥ÅäÔªËØ
-                if (current == head) {  // É¾³ıÍ·ÔªËØ
+            if (current->data == data) {  // æ‰¾åˆ°åŒ¹é…å…ƒç´ 
+                if (current == head) {  // åˆ é™¤å¤´å…ƒç´ 
                     head = current->next;
                     if (head != nullptr) {
                         head->prev = nullptr;
                     } else {
-                        tail = nullptr;  // Èç¹ûÁ´±íÎª¿Õ£¬Î²²¿Ò²Îªnullptr
+                        tail = nullptr;  // å¦‚æœé“¾è¡¨ä¸ºç©ºï¼Œå°¾éƒ¨ä¹Ÿä¸ºnullptr
                     }
-                } else if (current == tail) {  // É¾³ıÎ²ÔªËØ
+                } else if (current == tail) {  // åˆ é™¤å°¾å…ƒç´ 
                     tail = current->prev;
                     tail->next = nullptr;
-                } else {  // É¾³ıÖĞ¼äÔªËØ
+                } else {  // åˆ é™¤ä¸­é—´å…ƒç´ 
                     current->prev->next = current->next;
                     current->next->prev = current->prev;
                 }
-                delete current;  // ÊÍ·Å½ÚµãÄÚ´æ
+                delete current;  // é‡Šæ”¾èŠ‚ç‚¹å†…å­˜
                 size--;
                 return true;
             }
             current = current->next;
         }
-        return false;  // Ã»ÓĞÕÒµ½ÔªËØ
+        return false;  // æ²¡æœ‰æ‰¾åˆ°å…ƒç´ 
     }
 
-    // É¾³ıÊ×ÔªËØ
+    // åˆ é™¤é¦–å…ƒç´ 
     T removeFirst() {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -143,14 +143,14 @@ public:
         if (head != nullptr) {
             head->prev = nullptr;
         } else {
-            tail = nullptr;  // Èç¹ûÉ¾³ıºóÁ´±íÎª¿Õ£¬Î²²¿Ò²Îªnullptr
+            tail = nullptr;  // å¦‚æœåˆ é™¤åé“¾è¡¨ä¸ºç©ºï¼Œå°¾éƒ¨ä¹Ÿä¸ºnullptr
         }
         delete temp;
         size--;
         return data;
     }
 
-    // É¾³ıÎ²ÔªËØ
+    // åˆ é™¤å°¾å…ƒç´ 
     T removeLast() {
         if (size == 0) {
             throw runtime_error("List is empty");
@@ -161,20 +161,20 @@ public:
         if (tail != nullptr) {
             tail->next = nullptr;
         } else {
-            head = nullptr;  // Èç¹ûÉ¾³ıºóÁ´±íÎª¿Õ£¬Í·²¿Ò²Îªnullptr
+            head = nullptr;  // å¦‚æœåˆ é™¤åé“¾è¡¨ä¸ºç©ºï¼Œå¤´éƒ¨ä¹Ÿä¸ºnullptr
         }
         delete temp;
         size--;
         return data;
     }
 
-    // ±éÀúÁ´±í²¢Êä³öËùÓĞÔªËØ
+    // éå†é“¾è¡¨å¹¶è¾“å‡ºæ‰€æœ‰å…ƒç´ 
     void traverse() const {
         Node* current = head;
         while (current != nullptr) {
-            // Êä³öµ±Ç°½ÚµãµÄÖµ
+            // è¾“å‡ºå½“å‰èŠ‚ç‚¹çš„å€¼
             cout << current->data << " ";
-            // ÒÆ¶¯µ½ÏÂÒ»¸ö½Úµã
+            // ç§»åŠ¨åˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
             current = current->next;
         }
         cout << endl;
@@ -182,72 +182,72 @@ public:
     }
 };
 
-// ²âÊÔ´úÂë
+// æµ‹è¯•ä»£ç 
 int main() {
     try {
-        // ´´½¨Ò»¸öÈİÁ¿Îª 5 µÄË«ÏòÁ´±í
+        // åˆ›å»ºä¸€ä¸ªå®¹é‡ä¸º 5 çš„åŒå‘é“¾è¡¨
         DoubleLinkedList<int> list(5);
 
-        // Ìí¼ÓÔªËØµ½Á´±í
+        // æ·»åŠ å…ƒç´ åˆ°é“¾è¡¨
         list.add(10);
         list.add(20);
         list.add(30);
         list.add(40);
         list.add(50);
 
-        // Êä³öÁ´±íÄÚÈİ
-        cout << "Á´±íÄÚÈİ£º";
-        list.traverse();  // Êä³ö 10 20 30 40 50
+        // è¾“å‡ºé“¾è¡¨å†…å®¹
+        cout << "é“¾è¡¨å†…å®¹ï¼š";
+        list.traverse();  // è¾“å‡º 10 20 30 40 50
 
-        // É¾³ıÍ·²¿ÔªËØ
+        // åˆ é™¤å¤´éƒ¨å…ƒç´ 
         list.removeFirst();
-        cout << "É¾³ıÍ·²¿ÔªËØºóÁ´±íÄÚÈİ£º";
-        list.traverse();  // Êä³ö 20 30 40 50
+        cout << "åˆ é™¤å¤´éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š";
+        list.traverse();  // è¾“å‡º 20 30 40 50
 
-        // É¾³ıÎ²²¿ÔªËØ
+        // åˆ é™¤å°¾éƒ¨å…ƒç´ 
         list.removeLast();
-        cout << "É¾³ıÎ²²¿ÔªËØºóÁ´±íÄÚÈİ£º";
-        list.traverse();  // Êä³ö 20 30 40
+        cout << "åˆ é™¤å°¾éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š";
+        list.traverse();  // è¾“å‡º 20 30 40
 
-        // É¾³ıÔªËØ 30
+        // åˆ é™¤å…ƒç´  30
         list.remove(30);
-        cout << "É¾³ıÔªËØ 30 ºóÁ´±íÄÚÈİ£º";
-        list.traverse();  // Êä³ö 20 40
+        cout << "åˆ é™¤å…ƒç´  30 åé“¾è¡¨å†…å®¹ï¼š";
+        list.traverse();  // è¾“å‡º 20 40
 
-        // Ìí¼ÓÔªËØµ½Á´±í
+        // æ·»åŠ å…ƒç´ åˆ°é“¾è¡¨
         list.add(60);
-        cout << "Ìí¼ÓÔªËØ 60 ºóÁ´±íÄÚÈİ£º";
-        list.traverse();  // Êä³ö 20 40 60
+        cout << "æ·»åŠ å…ƒç´  60 åé“¾è¡¨å†…å®¹ï¼š";
+        list.traverse();  // è¾“å‡º 20 40 60
 
-        // Êä³öÁ´±íµÄÍ·ÔªËØ
-        cout << "Í·ÔªËØ£º";
-        cout << list.getFirst() << endl;  // Êä³ö 20
+        // è¾“å‡ºé“¾è¡¨çš„å¤´å…ƒç´ 
+        cout << "å¤´å…ƒç´ ï¼š";
+        cout << list.getFirst() << endl;  // è¾“å‡º 20
 
-        // Êä³öÁ´±íµÄÎ²ÔªËØ
-        cout << "Î²ÔªËØ£º";
-        cout << list.getLast() << endl;  // Êä³ö 60
+        // è¾“å‡ºé“¾è¡¨çš„å°¾å…ƒç´ 
+        cout << "å°¾å…ƒç´ ï¼š";
+        cout << list.getLast() << endl;  // è¾“å‡º 60
 
     } catch (const runtime_error& e) {
-        cout << "´íÎó: " << e.what() << endl;
+        cout << "é”™è¯¯: " << e.what() << endl;
     } catch (const invalid_argument& e) {
-        cout << "´íÎó: " << e.what() << endl;
+        cout << "é”™è¯¯: " << e.what() << endl;
     }
 
     return 0;
 }
 
 /*
-Á´±íÄÚÈİ£º10 20 30 40 50
+é“¾è¡¨å†…å®¹ï¼š10 20 30 40 50
 
-É¾³ıÍ·²¿ÔªËØºóÁ´±íÄÚÈİ£º20 30 40 50
+åˆ é™¤å¤´éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š20 30 40 50
 
-É¾³ıÎ²²¿ÔªËØºóÁ´±íÄÚÈİ£º20 30 40
+åˆ é™¤å°¾éƒ¨å…ƒç´ åé“¾è¡¨å†…å®¹ï¼š20 30 40
 
-É¾³ıÔªËØ 30 ºóÁ´±íÄÚÈİ£º20 40
+åˆ é™¤å…ƒç´  30 åé“¾è¡¨å†…å®¹ï¼š20 40
 
-Ìí¼ÓÔªËØ 60 ºóÁ´±íÄÚÈİ£º20 40 60
+æ·»åŠ å…ƒç´  60 åé“¾è¡¨å†…å®¹ï¼š20 40 60
 
-Í·ÔªËØ£º20
-Î²ÔªËØ£º60
+å¤´å…ƒç´ ï¼š20
+å°¾å…ƒç´ ï¼š60
 
  */

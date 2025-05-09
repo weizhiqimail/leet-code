@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Ë«Á´±í½Úµã
+// åŒé“¾è¡¨èŠ‚ç‚¹
 typedef struct DNode {
-    int data;                 // Êı¾İÓò
-    struct DNode* prev;       // Ö¸ÏòÇ°Ò»¸ö½Úµã
-    struct DNode* next;       // Ö¸ÏòÏÂÒ»¸ö½Úµã
+    int data;                 // æ•°æ®åŸŸ
+    struct DNode* prev;       // æŒ‡å‘å‰ä¸€ä¸ªèŠ‚ç‚¹
+    struct DNode* next;       // æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 } DNode;
 
-// Ë«Á´±í½á¹¹Ìå
+// åŒé“¾è¡¨ç»“æ„ä½“
 typedef struct DoubleLinkedList {
-    DNode* head;              // Ö¸ÏòÍ·½Úµã
-    DNode* tail;              // Ö¸ÏòÎ²½Úµã
-    int size;                 // µ±Ç°ÔªËØÊıÁ¿
-    int capacity;             // ×î´óÈİÁ¿
+    DNode* head;              // æŒ‡å‘å¤´èŠ‚ç‚¹
+    DNode* tail;              // æŒ‡å‘å°¾èŠ‚ç‚¹
+    int size;                 // å½“å‰å…ƒç´ æ•°é‡
+    int capacity;             // æœ€å¤§å®¹é‡
 } DoubleLinkedList;
 
-// ³õÊ¼»¯Ë«ÏòÁ´±í
+// åˆå§‹åŒ–åŒå‘é“¾è¡¨
 DoubleLinkedList* createDoubleLinkedList(int capacity) {
     if (capacity <= 0) {
-        printf("Á´±íÈİÁ¿±ØĞëÎªÕıÊı\n");
+        printf("é“¾è¡¨å®¹é‡å¿…é¡»ä¸ºæ­£æ•°\n");
         exit(1);
     }
     DoubleLinkedList* list = (DoubleLinkedList*)malloc(sizeof(DoubleLinkedList));
@@ -30,38 +30,38 @@ DoubleLinkedList* createDoubleLinkedList(int capacity) {
     return list;
 }
 
-// »ñÈ¡Á´±íÈİÁ¿
+// è·å–é“¾è¡¨å®¹é‡
 int getCapacity(DoubleLinkedList* list) {
     return list->capacity;
 }
 
-// »ñÈ¡Á´±íµ±Ç°ÔªËØ¸öÊı
+// è·å–é“¾è¡¨å½“å‰å…ƒç´ ä¸ªæ•°
 int getSize(DoubleLinkedList* list) {
     return list->size;
 }
 
-// »ñÈ¡Í·½ÚµãÔªËØ
+// è·å–å¤´èŠ‚ç‚¹å…ƒç´ 
 int getFirst(DoubleLinkedList* list) {
     if (list->size == 0) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
     return list->head->data;
 }
 
-// »ñÈ¡Î²½ÚµãÔªËØ
+// è·å–å°¾èŠ‚ç‚¹å…ƒç´ 
 int getLast(DoubleLinkedList* list) {
     if (list->size == 0) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
     return list->tail->data;
 }
 
-// ÔÚÎ²²¿Ìí¼ÓÔªËØ
+// åœ¨å°¾éƒ¨æ·»åŠ å…ƒç´ 
 void addLast(DoubleLinkedList* list, int data) {
     if (list->size >= list->capacity) {
-        printf("Á´±íÒÑÂú\n");
+        printf("é“¾è¡¨å·²æ»¡\n");
         return;
     }
     DNode* newNode = (DNode*)malloc(sizeof(DNode));
@@ -78,10 +78,10 @@ void addLast(DoubleLinkedList* list, int data) {
     list->size++;
 }
 
-// ÔÚÍ·²¿Ìí¼ÓÔªËØ
+// åœ¨å¤´éƒ¨æ·»åŠ å…ƒç´ 
 void addFirst(DoubleLinkedList* list, int data) {
     if (list->size >= list->capacity) {
-        printf("Á´±íÒÑÂú\n");
+        printf("é“¾è¡¨å·²æ»¡\n");
         return;
     }
     DNode* newNode = (DNode*)malloc(sizeof(DNode));
@@ -98,12 +98,12 @@ void addFirst(DoubleLinkedList* list, int data) {
     list->size++;
 }
 
-// Ä¬ÈÏÌí¼Ó·½·¨£¨Î²²¿Ìí¼Ó£©
+// é»˜è®¤æ·»åŠ æ–¹æ³•ï¼ˆå°¾éƒ¨æ·»åŠ ï¼‰
 void add(DoubleLinkedList* list, int data) {
     addLast(list, data);
 }
 
-// É¾³ıÊ×¸öÆ¥ÅäµÄÔªËØ
+// åˆ é™¤é¦–ä¸ªåŒ¹é…çš„å…ƒç´ 
 int removeElement(DoubleLinkedList* list, int data) {
     if (list->size == 0) {
         return 0;
@@ -112,7 +112,7 @@ int removeElement(DoubleLinkedList* list, int data) {
     DNode* current = list->head;
     while (current != NULL) {
         if (current->data == data) {
-            // É¾³ıÍ·½Úµã
+            // åˆ é™¤å¤´èŠ‚ç‚¹
             if (current == list->head) {
                 list->head = current->next;
                 if (list->head != NULL) {
@@ -121,12 +121,12 @@ int removeElement(DoubleLinkedList* list, int data) {
                     list->tail = NULL;
                 }
             }
-            // É¾³ıÎ²½Úµã
+            // åˆ é™¤å°¾èŠ‚ç‚¹
             else if (current == list->tail) {
                 list->tail = current->prev;
                 list->tail->next = NULL;
             }
-            // É¾³ıÖĞ¼ä½Úµã
+            // åˆ é™¤ä¸­é—´èŠ‚ç‚¹
             else {
                 current->prev->next = current->next;
                 current->next->prev = current->prev;
@@ -141,10 +141,10 @@ int removeElement(DoubleLinkedList* list, int data) {
     return 0;
 }
 
-// É¾³ıÍ·½Úµã
+// åˆ é™¤å¤´èŠ‚ç‚¹
 int removeFirst(DoubleLinkedList* list) {
     if (list->size == 0) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
 
@@ -163,10 +163,10 @@ int removeFirst(DoubleLinkedList* list) {
     return data;
 }
 
-// É¾³ıÎ²½Úµã
+// åˆ é™¤å°¾èŠ‚ç‚¹
 int removeLast(DoubleLinkedList* list) {
     if (list->size == 0) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
 
@@ -185,15 +185,15 @@ int removeLast(DoubleLinkedList* list) {
     return data;
 }
 
-// ±éÀúÁ´±í²¢´òÓ¡ËùÓĞÔªËØ
+// éå†é“¾è¡¨å¹¶æ‰“å°æ‰€æœ‰å…ƒç´ 
 void traverseDoubleLinkedList(DoubleLinkedList* list) {
     if (list->size == 0) {
-        printf("Á´±íÎª¿Õ\n\n");
+        printf("é“¾è¡¨ä¸ºç©º\n\n");
         return;
     }
 
     DNode* current = list->head;
-    printf("Á´±íÔªËØ£º");
+    printf("é“¾è¡¨å…ƒç´ ï¼š");
     while (current != NULL) {
         printf("%d ", current->data);
         current = current->next;
@@ -201,7 +201,7 @@ void traverseDoubleLinkedList(DoubleLinkedList* list) {
     printf("\n\n");
 }
 
-// ÊÍ·ÅÁ´±íÄÚ´æ
+// é‡Šæ”¾é“¾è¡¨å†…å­˜
 void freeDoubleLinkedList(DoubleLinkedList* list) {
     DNode* current = list->head;
     while (current != NULL) {
@@ -213,81 +213,81 @@ void freeDoubleLinkedList(DoubleLinkedList* list) {
 }
 
 int main() {
-    // ´´½¨ÈİÁ¿Îª10µÄË«ÏòÁ´±í
+    // åˆ›å»ºå®¹é‡ä¸º10çš„åŒå‘é“¾è¡¨
     DoubleLinkedList* list = createDoubleLinkedList(10);
 
-    printf("³õÊ¼»¯Á´±í£¬ÈİÁ¿£º%d\n", getCapacity(list));
-    printf("µ±Ç°ÔªËØ¸öÊı£º%d\n\n", getSize(list));
+    printf("åˆå§‹åŒ–é“¾è¡¨ï¼Œå®¹é‡ï¼š%d\n", getCapacity(list));
+    printf("å½“å‰å…ƒç´ ä¸ªæ•°ï¼š%d\n\n", getSize(list));
 
-    // Ìí¼ÓÔªËØµ½Î²²¿
+    // æ·»åŠ å…ƒç´ åˆ°å°¾éƒ¨
     addLast(list, 10);
     addLast(list, 20);
     addLast(list, 30);
-    printf("Î²²¿Ìí¼ÓÔªËØ 10, 20, 30£º\n");
+    printf("å°¾éƒ¨æ·»åŠ å…ƒç´  10, 20, 30ï¼š\n");
     traverseDoubleLinkedList(list);
 
-    // Ìí¼ÓÔªËØµ½Í·²¿
+    // æ·»åŠ å…ƒç´ åˆ°å¤´éƒ¨
     addFirst(list, 5);
     addFirst(list, 2);
-    printf("Í·²¿Ìí¼ÓÔªËØ 5, 2£º\n");
+    printf("å¤´éƒ¨æ·»åŠ å…ƒç´  5, 2ï¼š\n");
     traverseDoubleLinkedList(list);
 
-    // É¾³ıÖ¸¶¨ÔªËØ
-    printf("É¾³ıÔªËØ 20£º\n");
+    // åˆ é™¤æŒ‡å®šå…ƒç´ 
+    printf("åˆ é™¤å…ƒç´  20ï¼š\n");
     removeElement(list, 20);
     traverseDoubleLinkedList(list);
 
-    // É¾³ıÍ·ÔªËØ
-    printf("É¾³ıÍ·ÔªËØ£º%d\n", removeFirst(list));
+    // åˆ é™¤å¤´å…ƒç´ 
+    printf("åˆ é™¤å¤´å…ƒç´ ï¼š%d\n", removeFirst(list));
     traverseDoubleLinkedList(list);
 
-    // É¾³ıÎ²ÔªËØ
-    printf("É¾³ıÎ²ÔªËØ£º%d\n", removeLast(list));
+    // åˆ é™¤å°¾å…ƒç´ 
+    printf("åˆ é™¤å°¾å…ƒç´ ï¼š%d\n", removeLast(list));
     traverseDoubleLinkedList(list);
 
-    // Î²²¿ÔÙÌí¼ÓÁ½¸ö
+    // å°¾éƒ¨å†æ·»åŠ ä¸¤ä¸ª
     addLast(list, 40);
     addLast(list, 50);
-    printf("ÔÙ´ÎÎ²²¿Ìí¼Ó 40, 50£º\n");
+    printf("å†æ¬¡å°¾éƒ¨æ·»åŠ  40, 50ï¼š\n");
     traverseDoubleLinkedList(list);
 
-    // ´òÓ¡Í·Î²Êı¾İ
-    printf("µ±Ç°Í·ÔªËØ£º%d\n", getFirst(list));
-    printf("µ±Ç°Î²ÔªËØ£º%d\n", getLast(list));
-    printf("µ±Ç°Á´±í´óĞ¡£º%d\n\n", getSize(list));
+    // æ‰“å°å¤´å°¾æ•°æ®
+    printf("å½“å‰å¤´å…ƒç´ ï¼š%d\n", getFirst(list));
+    printf("å½“å‰å°¾å…ƒç´ ï¼š%d\n", getLast(list));
+    printf("å½“å‰é“¾è¡¨å¤§å°ï¼š%d\n\n", getSize(list));
 
-    // Çå¿Õ²¢ÊÍ·ÅÁ´±í
+    // æ¸…ç©ºå¹¶é‡Šæ”¾é“¾è¡¨
     freeDoubleLinkedList(list);
-    printf("Á´±íÒÑÊÍ·Å¡£\n");
+    printf("é“¾è¡¨å·²é‡Šæ”¾ã€‚\n");
 
     return 0;
 }
 
 /**
-³õÊ¼»¯Á´±í£¬ÈİÁ¿£º10
-µ±Ç°ÔªËØ¸öÊı£º0
+åˆå§‹åŒ–é“¾è¡¨ï¼Œå®¹é‡ï¼š10
+å½“å‰å…ƒç´ ä¸ªæ•°ï¼š0
 
-Î²²¿Ìí¼ÓÔªËØ 10, 20, 30£º
-Á´±íÔªËØ£º10 20 30
+å°¾éƒ¨æ·»åŠ å…ƒç´  10, 20, 30ï¼š
+é“¾è¡¨å…ƒç´ ï¼š10 20 30
 
-Í·²¿Ìí¼ÓÔªËØ 5, 2£º
-Á´±íÔªËØ£º2 5 10 20 30
+å¤´éƒ¨æ·»åŠ å…ƒç´  5, 2ï¼š
+é“¾è¡¨å…ƒç´ ï¼š2 5 10 20 30
 
-É¾³ıÔªËØ 20£º
-Á´±íÔªËØ£º2 5 10 30
+åˆ é™¤å…ƒç´  20ï¼š
+é“¾è¡¨å…ƒç´ ï¼š2 5 10 30
 
-É¾³ıÍ·ÔªËØ£º2
-Á´±íÔªËØ£º5 10 30
+åˆ é™¤å¤´å…ƒç´ ï¼š2
+é“¾è¡¨å…ƒç´ ï¼š5 10 30
 
-É¾³ıÎ²ÔªËØ£º30
-Á´±íÔªËØ£º5 10
+åˆ é™¤å°¾å…ƒç´ ï¼š30
+é“¾è¡¨å…ƒç´ ï¼š5 10
 
-ÔÙ´ÎÎ²²¿Ìí¼Ó 40, 50£º
-Á´±íÔªËØ£º5 10 40 50
+å†æ¬¡å°¾éƒ¨æ·»åŠ  40, 50ï¼š
+é“¾è¡¨å…ƒç´ ï¼š5 10 40 50
 
-µ±Ç°Í·ÔªËØ£º5
-µ±Ç°Î²ÔªËØ£º50
-µ±Ç°Á´±í´óĞ¡£º4
+å½“å‰å¤´å…ƒç´ ï¼š5
+å½“å‰å°¾å…ƒç´ ï¼š50
+å½“å‰é“¾è¡¨å¤§å°ï¼š4
 
-Á´±íÒÑÊÍ·Å¡£
+é“¾è¡¨å·²é‡Šæ”¾ã€‚
  */

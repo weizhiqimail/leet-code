@@ -1,28 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// µ¥Á´±í½áµã½á¹¹
+// å•é“¾è¡¨ç»“ç‚¹ç»“æ„
 typedef struct Node {
-    int data;               // ´æ´¢µÄÊı¾İ
-    struct Node *next;      // Ö¸ÏòÏÂÒ»¸ö½áµãµÄÖ¸Õë
+    int data;               // å­˜å‚¨çš„æ•°æ®
+    struct Node *next;      // æŒ‡å‘ä¸‹ä¸€ä¸ªç»“ç‚¹çš„æŒ‡é’ˆ
 } Node;
 
-// µ¥Á´±í½á¹¹Ìå
+// å•é“¾è¡¨ç»“æ„ä½“
 typedef struct SingleLinkedList {
-    Node *head;             // Á´±íµÄÍ·½áµã
-    int size;               // µ±Ç°Á´±í³¤¶È
-    int capacity;           // Á´±í×î´óÈİÁ¿
+    Node *head;             // é“¾è¡¨çš„å¤´ç»“ç‚¹
+    int size;               // å½“å‰é“¾è¡¨é•¿åº¦
+    int capacity;           // é“¾è¡¨æœ€å¤§å®¹é‡
 } SingleLinkedList;
 
-// ´´½¨Ò»¸öĞÂµÄµ¥Á´±í£¬³õÊ¼»¯ÈİÁ¿
+// åˆ›å»ºä¸€ä¸ªæ–°çš„å•é“¾è¡¨ï¼Œåˆå§‹åŒ–å®¹é‡
 SingleLinkedList *createSingleLinkedList(int capacity) {
     if (capacity <= 0) {
-        printf("Á´±íÈİÁ¿±ØĞë´óÓÚ0\n");
+        printf("é“¾è¡¨å®¹é‡å¿…é¡»å¤§äº0\n");
         return NULL;
     }
     SingleLinkedList *list = (SingleLinkedList *) malloc(sizeof(SingleLinkedList));
     if (list == NULL) {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥\n");
         exit(1);
     }
     list->head = NULL;
@@ -31,34 +31,34 @@ SingleLinkedList *createSingleLinkedList(int capacity) {
     return list;
 }
 
-// »ñÈ¡Á´±íÈİÁ¿
+// è·å–é“¾è¡¨å®¹é‡
 int getCapacity(SingleLinkedList *list) {
     return list->capacity;
 }
 
-// »ñÈ¡Á´±íµ±Ç°ÔªËØ¸öÊı
+// è·å–é“¾è¡¨å½“å‰å…ƒç´ ä¸ªæ•°
 int getSize(SingleLinkedList *list) {
     return list->size;
 }
 
-// ÅĞ¶ÏÁ´±íÊÇ·ñÎª¿Õ
+// åˆ¤æ–­é“¾è¡¨æ˜¯å¦ä¸ºç©º
 int isEmpty(SingleLinkedList *list) {
     return list->size == 0;
 }
 
-// »ñÈ¡Í·½áµãµÄÊı¾İ
+// è·å–å¤´ç»“ç‚¹çš„æ•°æ®
 int getHeadNode(SingleLinkedList *list) {
     if (isEmpty(list)) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
     return list->head->data;
 }
 
-// »ñÈ¡Î²½áµãµÄÊı¾İ
+// è·å–å°¾ç»“ç‚¹çš„æ•°æ®
 int getTailNode(SingleLinkedList *list) {
     if (isEmpty(list)) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
 
@@ -69,16 +69,16 @@ int getTailNode(SingleLinkedList *list) {
     return currentNode->data;
 }
 
-// ÏòÁ´±íÎ²²¿Ìí¼ÓÒ»¸öĞÂ½áµã
+// å‘é“¾è¡¨å°¾éƒ¨æ·»åŠ ä¸€ä¸ªæ–°ç»“ç‚¹
 void addLastNode(SingleLinkedList *list, int data) {
     if (list->size >= list->capacity) {
-        printf("Á´±íÒÑÂú\n");
+        printf("é“¾è¡¨å·²æ»¡\n");
         exit(1);
     }
 
     Node *newNode = (Node *) malloc(sizeof(Node));
     if (newNode == NULL) {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥\n");
         exit(1);
     }
     newNode->data = data;
@@ -96,16 +96,16 @@ void addLastNode(SingleLinkedList *list, int data) {
     list->size++;
 }
 
-// ÏòÁ´±íÍ·²¿Ìí¼ÓÒ»¸öĞÂ½áµã
+// å‘é“¾è¡¨å¤´éƒ¨æ·»åŠ ä¸€ä¸ªæ–°ç»“ç‚¹
 void addFirstNode(SingleLinkedList *list, int data) {
     if (list->size >= list->capacity) {
-        printf("Á´±íÒÑÂú\n");
+        printf("é“¾è¡¨å·²æ»¡\n");
         exit(1);
     }
 
     Node *newNode = (Node *) malloc(sizeof(Node));
     if (newNode == NULL) {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥\n");
         exit(1);
     }
     newNode->data = data;
@@ -114,10 +114,10 @@ void addFirstNode(SingleLinkedList *list, int data) {
     list->size++;
 }
 
-// É¾³ıÁ´±íÖĞÊ×¸öÆ¥Åä data µÄ½áµã
+// åˆ é™¤é“¾è¡¨ä¸­é¦–ä¸ªåŒ¹é… data çš„ç»“ç‚¹
 int removeNode(SingleLinkedList *list, int data) {
     if (isEmpty(list)) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
 
@@ -139,13 +139,13 @@ int removeNode(SingleLinkedList *list, int data) {
         }
         currentNode = currentNode->next;
     }
-    return 0;  // Î´ÕÒµ½Æ¥ÅäÔªËØ
+    return 0;  // æœªæ‰¾åˆ°åŒ¹é…å…ƒç´ 
 }
 
-// É¾³ıÁ´±íÍ·²¿½áµã
+// åˆ é™¤é“¾è¡¨å¤´éƒ¨ç»“ç‚¹
 int removeFirstNode(SingleLinkedList *list) {
     if (isEmpty(list)) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
 
@@ -156,10 +156,10 @@ int removeFirstNode(SingleLinkedList *list) {
     return 1;
 }
 
-// É¾³ıÁ´±íÎ²²¿½áµã
+// åˆ é™¤é“¾è¡¨å°¾éƒ¨ç»“ç‚¹
 int removeLastNode(SingleLinkedList *list) {
     if (isEmpty(list)) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         exit(1);
     }
 
@@ -183,7 +183,7 @@ int removeLastNode(SingleLinkedList *list) {
     return data;
 }
 
-// ÊÍ·ÅÕû¸öÁ´±íÕ¼ÓÃµÄÄÚ´æ
+// é‡Šæ”¾æ•´ä¸ªé“¾è¡¨å ç”¨çš„å†…å­˜
 void freeSingleLinkedList(SingleLinkedList *list) {
     Node *currentNode = list->head;
     while (currentNode != NULL) {
@@ -194,14 +194,14 @@ void freeSingleLinkedList(SingleLinkedList *list) {
     free(list);
 }
 
-// ±éÀúÁ´±í²¢´òÓ¡ËùÓĞÔªËØ
+// éå†é“¾è¡¨å¹¶æ‰“å°æ‰€æœ‰å…ƒç´ 
 void traverseList(SingleLinkedList *list) {
     if (isEmpty(list)) {
-        printf("Á´±íÎª¿Õ\n");
+        printf("é“¾è¡¨ä¸ºç©º\n");
         return;
     }
 
-    printf("Á´±íÔªËØ£º");
+    printf("é“¾è¡¨å…ƒç´ ï¼š");
     Node *current = list->head;
     while (current != NULL) {
         printf("%d ", current->data);
@@ -211,16 +211,16 @@ void traverseList(SingleLinkedList *list) {
 }
 
 
-// ²âÊÔµ¥Á´±íµÄ¹¦ÄÜ
+// æµ‹è¯•å•é“¾è¡¨çš„åŠŸèƒ½
 int main() {
-    printf("¿ªÊ¼²âÊÔ...\n");
+    printf("å¼€å§‹æµ‹è¯•...\n");
 
-    // 1. ´´½¨Á´±í
+    // 1. åˆ›å»ºé“¾è¡¨
     SingleLinkedList *list = createSingleLinkedList(5);
-    printf("´´½¨Á´±í£¬ÈİÁ¿: %d£¬ÊÇ·ñÎª¿Õ: %s\n", getCapacity(list), isEmpty(list) ? "ÊÇ" : "·ñ");
+    printf("åˆ›å»ºé“¾è¡¨ï¼Œå®¹é‡: %dï¼Œæ˜¯å¦ä¸ºç©º: %s\n", getCapacity(list), isEmpty(list) ? "æ˜¯" : "å¦");
     traverseList(list);
 
-    // 2. Ìí¼ÓÔªËØ
+    // 2. æ·»åŠ å…ƒç´ 
     addLastNode(list, 10);
     traverseList(list);
 
@@ -236,72 +236,72 @@ int main() {
     addFirstNode(list, 1);
     traverseList(list);
 
-    printf("Ìí¼ÓÔªËØºó£¬µ±Ç°´óĞ¡: %d\n", getSize(list));
+    printf("æ·»åŠ å…ƒç´ åï¼Œå½“å‰å¤§å°: %d\n", getSize(list));
 
-    // 3. »ñÈ¡Í·Î²½áµã
-    printf("Í·½áµãÊı¾İ: %d\n", getHeadNode(list));
-    printf("Î²½áµãÊı¾İ: %d\n", getTailNode(list));
+    // 3. è·å–å¤´å°¾ç»“ç‚¹
+    printf("å¤´ç»“ç‚¹æ•°æ®: %d\n", getHeadNode(list));
+    printf("å°¾ç»“ç‚¹æ•°æ®: %d\n", getTailNode(list));
 
-    // 4. É¾³ıÖ¸¶¨ÔªËØ
-    printf("³¢ÊÔÉ¾³ıÔªËØ 20: %s\n", removeNode(list, 20) ? "³É¹¦" : "Ê§°Ü");
+    // 4. åˆ é™¤æŒ‡å®šå…ƒç´ 
+    printf("å°è¯•åˆ é™¤å…ƒç´  20: %s\n", removeNode(list, 20) ? "æˆåŠŸ" : "å¤±è´¥");
     traverseList(list);
 
-    printf("³¢ÊÔÉ¾³ıÔªËØ 100£¨²»´æÔÚ£©: %s\n", removeNode(list, 100) ? "³É¹¦" : "Ê§°Ü");
+    printf("å°è¯•åˆ é™¤å…ƒç´  100ï¼ˆä¸å­˜åœ¨ï¼‰: %s\n", removeNode(list, 100) ? "æˆåŠŸ" : "å¤±è´¥");
     traverseList(list);
 
-    // 5. É¾³ıÍ·½áµã
+    // 5. åˆ é™¤å¤´ç»“ç‚¹
     removeFirstNode(list);
-    printf("É¾³ıÍ·½áµãºó£¬ĞÂµÄÍ·½áµãÊı¾İ: %d\n", getHeadNode(list));
+    printf("åˆ é™¤å¤´ç»“ç‚¹åï¼Œæ–°çš„å¤´ç»“ç‚¹æ•°æ®: %d\n", getHeadNode(list));
     traverseList(list);
 
-    // 6. É¾³ıÎ²½áµã
+    // 6. åˆ é™¤å°¾ç»“ç‚¹
     int removed = removeLastNode(list);
-    printf("É¾³ıÎ²½áµã£¬É¾³ıµÄÖµÎª: %d\n", removed);
+    printf("åˆ é™¤å°¾ç»“ç‚¹ï¼Œåˆ é™¤çš„å€¼ä¸º: %d\n", removed);
     traverseList(list);
 
-    // 7. ´òÓ¡Ê£ÓàÔªËØ
-    printf("×îÖÕÁ´±íÔªËØÈçÏÂ£º\n");
+    // 7. æ‰“å°å‰©ä½™å…ƒç´ 
+    printf("æœ€ç»ˆé“¾è¡¨å…ƒç´ å¦‚ä¸‹ï¼š\n");
     traverseList(list);
 
-    // 8. ÊÍ·ÅÁ´±í
+    // 8. é‡Šæ”¾é“¾è¡¨
     freeSingleLinkedList(list);
-    printf("Á´±íÒÑÊÍ·Å¡£\n");
+    printf("é“¾è¡¨å·²é‡Šæ”¾ã€‚\n");
 
     return 0;
 }
 
 /**
-¿ªÊ¼²âÊÔ...
-´´½¨Á´±í£¬ÈİÁ¿: 5£¬ÊÇ·ñÎª¿Õ: ÊÇ
-Á´±íÎª¿Õ
+å¼€å§‹æµ‹è¯•...
+åˆ›å»ºé“¾è¡¨ï¼Œå®¹é‡: 5ï¼Œæ˜¯å¦ä¸ºç©º: æ˜¯
+é“¾è¡¨ä¸ºç©º
 
-Á´±íÔªËØ£º10
+é“¾è¡¨å…ƒç´ ï¼š10
 
-Á´±íÔªËØ£º10 20
+é“¾è¡¨å…ƒç´ ï¼š10 20
 
-Á´±íÔªËØ£º5 10 20
+é“¾è¡¨å…ƒç´ ï¼š5 10 20
 
-Á´±íÔªËØ£º5 10 20 30
+é“¾è¡¨å…ƒç´ ï¼š5 10 20 30
 
-Á´±íÔªËØ£º1 5 10 20 30
+é“¾è¡¨å…ƒç´ ï¼š1 5 10 20 30
 
-Ìí¼ÓÔªËØºó£¬µ±Ç°´óĞ¡: 5
-Í·½áµãÊı¾İ: 1
-Î²½áµãÊı¾İ: 30
-³¢ÊÔÉ¾³ıÔªËØ 20: ³É¹¦
-Á´±íÔªËØ£º1 5 10 30
+æ·»åŠ å…ƒç´ åï¼Œå½“å‰å¤§å°: 5
+å¤´ç»“ç‚¹æ•°æ®: 1
+å°¾ç»“ç‚¹æ•°æ®: 30
+å°è¯•åˆ é™¤å…ƒç´  20: æˆåŠŸ
+é“¾è¡¨å…ƒç´ ï¼š1 5 10 30
 
-³¢ÊÔÉ¾³ıÔªËØ 100£¨²»´æÔÚ£©: Ê§°Ü
-Á´±íÔªËØ£º1 5 10 30
+å°è¯•åˆ é™¤å…ƒç´  100ï¼ˆä¸å­˜åœ¨ï¼‰: å¤±è´¥
+é“¾è¡¨å…ƒç´ ï¼š1 5 10 30
 
-É¾³ıÍ·½áµãºó£¬ĞÂµÄÍ·½áµãÊı¾İ: 5
-Á´±íÔªËØ£º5 10 30
+åˆ é™¤å¤´ç»“ç‚¹åï¼Œæ–°çš„å¤´ç»“ç‚¹æ•°æ®: 5
+é“¾è¡¨å…ƒç´ ï¼š5 10 30
 
-É¾³ıÎ²½áµã£¬É¾³ıµÄÖµÎª: 30
-Á´±íÔªËØ£º5 10
+åˆ é™¤å°¾ç»“ç‚¹ï¼Œåˆ é™¤çš„å€¼ä¸º: 30
+é“¾è¡¨å…ƒç´ ï¼š5 10
 
-×îÖÕÁ´±íÔªËØÈçÏÂ£º
-Á´±íÔªËØ£º5 10
+æœ€ç»ˆé“¾è¡¨å…ƒç´ å¦‚ä¸‹ï¼š
+é“¾è¡¨å…ƒç´ ï¼š5 10
 
-Á´±íÒÑÊÍ·Å¡£
+é“¾è¡¨å·²é‡Šæ”¾ã€‚
  */
