@@ -1,293 +1,270 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// 双链表节点
-typedef struct DNode {
-    int data;                 // 数据域
-    struct DNode* prev;       // 指向前一个节点
-    struct DNode* next;       // 指向下一个节点
-} DNode;
+// 双链表结点
+typedef struct Node {
+  int data;
+  struct Node *prev;
+  struct Node *next;
+} Node;
 
-// 双链表结构体
+// 双链表的结构
 typedef struct DoubleLinkedList {
-    DNode* head;              // 指向头节点
-    DNode* tail;              // 指向尾节点
-    int size;                 // 当前元素数量
-    int capacity;             // 最大容量
+  Node *head;
+  Node *tail;
+  int size;
+  int capacity;
 } DoubleLinkedList;
 
-// 初始化双向链表
-DoubleLinkedList* createDoubleLinkedList(int capacity) {
-    if (capacity <= 0) {
-        printf("链表容量必须为正数\n");
-        exit(1);
-    }
-    DoubleLinkedList* list = (DoubleLinkedList*)malloc(sizeof(DoubleLinkedList));
-    list->head = NULL;
-    list->tail = NULL;
-    list->size = 0;
-    list->capacity = capacity;
-    return list;
+// 创建双链表
+DoubleLinkedList *createDoubleLinkedList(int capacity) {
+  if (capacity <= 0) {
+    printf("链表的容量不能为 0。\n");
+    return NULL;
+  }
+
+  DoubleLinkedList *list = (DoubleLinkedList *)malloc(sizeof(DoubleLinkedList));
+
+  if (!list) {
+    printf("创建双链表时，申请内存失败。\n");
+    return NULL;
+  }
+
+  list->head = NULL;
+  list->tail = NULL;
+  list->size = 0;
+  list->capacity = capacity;
+  return list;
 }
 
-// 获取链表容量
-int getCapacity(DoubleLinkedList* list) {
-    return list->capacity;
+// 查询双链表的容量
+int getCapacity(DoubleLinkedList *list) { return list->capacity; }
+
+// 查询双链表当前的长度
+int getSize(DoubleLinkedList *list) { return list->size; }
+
+// 判断当前链表是否为空
+int isEmpty(DoubleLinkedList *list) { return list->size == 0; }
+
+// 判断当前链表是否满了
+int isFull(DoubleLinkedList *list) { return list->size == list->capacity; }
+
+// 获取链表的头结点
+Node *getHeadNode(DoubleLinkedList *list) {
+  if (isEmpty(list)) {
+    printf("当前链表为空。\n");
+    return NULL;
+  }
+  return list->head;
 }
 
-// 获取链表当前元素个数
-int getSize(DoubleLinkedList* list) {
-    return list->size;
+// 获取链表的尾结点
+Node *getTailNode(DoubleLinkedList *list) {
+  if (isEmpty(list)) {
+    printf("当前链表为空。\n");
+    return NULL;
+  }
+  return list->tail;
 }
 
-// 获取头节点元素
-int getFirst(DoubleLinkedList* list) {
-    if (list->size == 0) {
-        printf("链表为空\n");
-        exit(1);
-    }
-    return list->head->data;
-}
-
-// 获取尾节点元素
-int getLast(DoubleLinkedList* list) {
-    if (list->size == 0) {
-        printf("链表为空\n");
-        exit(1);
-    }
-    return list->tail->data;
-}
-
-// 在尾部添加元素
-void addLast(DoubleLinkedList* list, int data) {
-    if (list->size >= list->capacity) {
-        printf("链表已满\n");
-        return;
-    }
-    DNode* newNode = (DNode*)malloc(sizeof(DNode));
-    newNode->data = data;
-    newNode->next = NULL;
-    newNode->prev = list->tail;
-
-    if (list->size == 0) {
-        list->head = list->tail = newNode;
-    } else {
-        list->tail->next = newNode;
-        list->tail = newNode;
-    }
-    list->size++;
-}
-
-// 在头部添加元素
-void addFirst(DoubleLinkedList* list, int data) {
-    if (list->size >= list->capacity) {
-        printf("链表已满\n");
-        return;
-    }
-    DNode* newNode = (DNode*)malloc(sizeof(DNode));
-    newNode->data = data;
-    newNode->prev = NULL;
-    newNode->next = list->head;
-
-    if (list->size == 0) {
-        list->head = list->tail = newNode;
-    } else {
-        list->head->prev = newNode;
-        list->head = newNode;
-    }
-    list->size++;
-}
-
-// 默认添加方法（尾部添加）
-void add(DoubleLinkedList* list, int data) {
-    addLast(list, data);
-}
-
-// 删除首个匹配的元素
-int removeElement(DoubleLinkedList* list, int data) {
-    if (list->size == 0) {
-        return 0;
-    }
-
-    DNode* current = list->head;
-    while (current != NULL) {
-        if (current->data == data) {
-            // 删除头节点
-            if (current == list->head) {
-                list->head = current->next;
-                if (list->head != NULL) {
-                    list->head->prev = NULL;
-                } else {
-                    list->tail = NULL;
-                }
-            }
-            // 删除尾节点
-            else if (current == list->tail) {
-                list->tail = current->prev;
-                list->tail->next = NULL;
-            }
-            // 删除中间节点
-            else {
-                current->prev->next = current->next;
-                current->next->prev = current->prev;
-            }
-
-            free(current);
-            list->size--;
-            return 1;
-        }
-        current = current->next;
-    }
+// 从头结点添加元素
+int addNodeFromHead(DoubleLinkedList *list, int data) {
+  if (isFull(list)) {
+    printf("从头结点添加元素，当前链表已满，不能添加新元素。\n");
     return 0;
+  }
+
+  Node *newNode = (Node *)malloc(sizeof(Node));
+  if (!newNode) {
+    printf("从头结点添加元素，创建新结点时，申请内存失败。\n");
+    return 0;
+  }
+
+  newNode->data = data;
+  newNode->prev = NULL;
+  newNode->next = list->head;
+
+  if (list->head != NULL) {
+    list->head->prev = newNode;
+  }
+  list->head = newNode;
+
+  if (list->tail == NULL) {
+    list->tail = newNode;
+  }
+  list->size++;
+  return 1;
 }
 
-// 删除头节点
-int removeFirst(DoubleLinkedList* list) {
-    if (list->size == 0) {
-        printf("链表为空\n");
-        exit(1);
-    }
+// 从尾结点添加元素
+int addNodeFromTail(DoubleLinkedList *list, int data) {
+  if (isFull(list)) {
+    printf("从尾结点添加元素，当前链表已满，不能添加新元素。\n");
+    return 0;
+  }
 
-    DNode* temp = list->head;
-    int data = temp->data;
+  Node *newNode = (Node *)malloc(sizeof(Node));
+  if (!newNode) {
+    printf("从尾结点添加元素，创建新结点时，申请内存失败。\n");
+    return 0;
+  }
 
-    list->head = temp->next;
-    if (list->head != NULL) {
-        list->head->prev = NULL;
-    } else {
-        list->tail = NULL;
-    }
+  newNode->data = data;
+  newNode->prev = list->tail;
+  newNode->next = NULL;
 
-    free(temp);
-    list->size--;
-    return data;
+  if (list->tail != NULL) {
+    list->tail->next = newNode;
+  }
+  list->tail = newNode;
+
+  if (list->head == NULL) {
+    list->head = newNode;
+  }
+
+  list->size++;
+  return 1;
 }
 
-// 删除尾节点
-int removeLast(DoubleLinkedList* list) {
-    if (list->size == 0) {
-        printf("链表为空\n");
-        exit(1);
-    }
+// 删除某个节点
+int removeNode(DoubleLinkedList *list, int data) {
+  if (isEmpty(list)) {
+    printf("当前链表为空，不能删除节点。\n");
+    return 0;
+  }
 
-    DNode* temp = list->tail;
-    int data = temp->data;
+  Node *currentNode = list->head;
 
-    list->tail = temp->prev;
-    if (list->tail != NULL) {
-        list->tail->next = NULL;
-    } else {
-        list->head = NULL;
-    }
+  // 找到要删除的节点
+  while (currentNode != NULL && currentNode->data != data) {
+    currentNode = currentNode->next;
+  }
 
-    free(temp);
-    list->size--;
-    return data;
+  if (currentNode == NULL) {
+    printf("未找到值为 %d 的节点，删除失败。\n", data);
+    return 0;
+  }
+
+  // 修改节点的 prev 的指向
+  // 当前节点的 prev 为 NULL，表示匹配到是首节点。
+  // 此时将 list->head 指向首节点的 next。
+  if (currentNode->prev == NULL) {
+    list->head = currentNode->next;
+  } else {
+    // 否则，说明匹配到的不是首节点，是中间节点
+    // 将前一个节点的 next 指向当前节点的 next。
+    // 即去掉 currentNode 的 next 指向。
+    currentNode->prev->next = currentNode->next;
+  }
+
+  // 修改节点的 next 的指向
+  // 当前节点的 next 为 NULL，表示匹配到的是尾节点。
+  // 此时将 list->tail 指向尾结点的 prev。
+  if (currentNode->next == NULL) {
+    list->tail = currentNode->prev;
+  } else {
+    // 否则，说明匹配到的不是尾结点，是中间节点
+    // 将下一个节点的 prev 指向当前节点的 prev。
+    // 即去掉 currentNode 的 prev 指向。
+    currentNode->next->prev = currentNode->prev;
+  }
+
+  free(currentNode);
+  list->size--;
+  return 1;
 }
 
-// 遍历链表并打印所有元素
-void traverseDoubleLinkedList(DoubleLinkedList* list) {
-    if (list->size == 0) {
-        printf("链表为空\n\n");
-        return;
-    }
+// 查找元素
+Node *findNode(DoubleLinkedList *list, int data) {
+  if (list == NULL) {
+    printf("当前链表为空，不能查找元素。\n");
+    return NULL;
+  }
 
-    DNode* current = list->head;
-    printf("链表元素：");
-    while (current != NULL) {
-        printf("%d ", current->data);
-        current = current->next;
+  Node *currentNode = list->head;
+
+  while (currentNode != NULL) {
+    if (currentNode->data == data) {
+      return currentNode;
     }
-    printf("\n\n");
+    currentNode = currentNode->next;
+  }
+  return NULL;
 }
 
-// 释放链表内存
-void freeDoubleLinkedList(DoubleLinkedList* list) {
-    DNode* current = list->head;
-    while (current != NULL) {
-        DNode* temp = current;
-        current = current->next;
-        free(temp);
-    }
-    free(list);
+// 遍历整个链表，并输出
+void traverseList(DoubleLinkedList *list) {
+  if (list == NULL || list->head == NULL) {
+    printf("当前链表为空，无需遍历。\n");
+    return;
+  }
+  Node *currentNode = list->head;
+  printf("开始遍历链表：[ ");
+  while (currentNode != NULL) {
+    printf("%d ", currentNode->data);
+    currentNode = currentNode->next;
+  }
+
+  printf("] 长度: %d\n\n", list->size);
+}
+
+// 释放整个链表所有内存
+void freeList(DoubleLinkedList *list) {
+  if (list == NULL) {
+    printf("当前链表为空，无需释放内存。\n");
+    return;
+  }
+
+  Node *currentNode = list->head;
+  while (currentNode != NULL) {
+    Node *tempNode = currentNode;
+    currentNode = currentNode->next;
+    free(tempNode);
+  }
+
+  list->size = 0;
+  list->head = NULL;
+  list->tail = NULL;
+  free(list);
 }
 
 int main() {
-    // 创建容量为10的双向链表
-    DoubleLinkedList* list = createDoubleLinkedList(10);
+  DoubleLinkedList *list = createDoubleLinkedList(5);
+  printf("---链表依次从尾结点开始，添加 1,2,3,4,5 共 5 个元素---\n");
+  addNodeFromTail(list, 1);
+  addNodeFromTail(list, 2);
+  addNodeFromTail(list, 3);
+  addNodeFromTail(list, 4);
+  addNodeFromTail(list, 5);
+  traverseList(list);
 
-    printf("初始化链表，容量：%d\n", getCapacity(list));
-    printf("当前元素个数：%d\n\n", getSize(list));
+  printf("---添加元素 6，此时链表已满，不能再添加---\n");
+  addNodeFromTail(list, 6);
+  traverseList(list);
 
-    // 添加元素到尾部
-    addLast(list, 10);
-    addLast(list, 20);
-    addLast(list, 30);
-    printf("尾部添加元素 10, 20, 30：\n");
-    traverseDoubleLinkedList(list);
+  printf("---链表删除结点 1,2,3,4,5---\n");
+  traverseList(list);
+  removeNode(list, 1);
+  traverseList(list);
+  removeNode(list, 2);
+  traverseList(list);
+  removeNode(list, 3);
+  traverseList(list);
+  removeNode(list, 4);
+  traverseList(list);
+  removeNode(list, 5);
+  traverseList(list);
 
-    // 添加元素到头部
-    addFirst(list, 5);
-    addFirst(list, 2);
-    printf("头部添加元素 5, 2：\n");
-    traverseDoubleLinkedList(list);
+  printf("---再次删除元素 1，此时链表为空，删除失败---\n");
+  removeNode(list, 1);
+  traverseList(list);
+  printf("\n");
 
-    // 删除指定元素
-    printf("删除元素 20：\n");
-    removeElement(list, 20);
-    traverseDoubleLinkedList(list);
+  printf("---链表依次从头结点开始，添加 6,7 共 2 个元素---\n");
+  addNodeFromHead(list, 6);
+  addNodeFromHead(list, 7);
+  traverseList(list);
+  printf("\n");
 
-    // 删除头元素
-    printf("删除头元素：%d\n", removeFirst(list));
-    traverseDoubleLinkedList(list);
-
-    // 删除尾元素
-    printf("删除尾元素：%d\n", removeLast(list));
-    traverseDoubleLinkedList(list);
-
-    // 尾部再添加两个
-    addLast(list, 40);
-    addLast(list, 50);
-    printf("再次尾部添加 40, 50：\n");
-    traverseDoubleLinkedList(list);
-
-    // 打印头尾数据
-    printf("当前头元素：%d\n", getFirst(list));
-    printf("当前尾元素：%d\n", getLast(list));
-    printf("当前链表大小：%d\n\n", getSize(list));
-
-    // 清空并释放链表
-    freeDoubleLinkedList(list);
-    printf("链表已释放。\n");
-
-    return 0;
+  freeList(list);
 }
-
-/**
-初始化链表，容量：10
-当前元素个数：0
-
-尾部添加元素 10, 20, 30：
-链表元素：10 20 30
-
-头部添加元素 5, 2：
-链表元素：2 5 10 20 30
-
-删除元素 20：
-链表元素：2 5 10 30
-
-删除头元素：2
-链表元素：5 10 30
-
-删除尾元素：30
-链表元素：5 10
-
-再次尾部添加 40, 50：
-链表元素：5 10 40 50
-
-当前头元素：5
-当前尾元素：50
-当前链表大小：4
-
-链表已释放。
- */
