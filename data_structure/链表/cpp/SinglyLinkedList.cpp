@@ -5,29 +5,21 @@ using namespace std;
 
 struct Node {
   int data;
-  Node *prev;
   Node *next;
 
-  Node(int data) : data(data), prev(nullptr), next(nullptr) {}
+  Node(int data) : data(data), next(nullptr) {}
 };
 
-class DoubleLinkedList {
-
-private:
-  Node *head;
-  Node *tail;
-  int size;
-  int capacity;
-
+class SingleLinkedList {
 public:
-  DoubleLinkedList(int capacity)
+  SingleLinkedList(int capacity)
       : head(nullptr), tail(nullptr), size(0), capacity(capacity) {
     if (capacity <= 0) {
       throw std::invalid_argument("容量必须为正数");
     }
   }
 
-  ~DoubleLinkedList() { clear(); }
+  ~SingleLinkedList() { clear(); }
 
   bool isEmpty() const { return this->size == 0; }
   bool isFull() const { return this->size == this->capacity; }
@@ -41,16 +33,10 @@ public:
     try {
       Node *newNode = new Node(data);
       newNode->next = this->head;
-
-      if (this->head) {
-        this->head->prev = newNode;
-      }
       this->head = newNode;
-
       if (!this->tail) {
         this->tail = newNode;
       }
-
       ++this->size;
       return true;
     } catch (const std::bad_alloc &) {
@@ -67,15 +53,13 @@ public:
 
     try {
       Node *newNode = new Node(data);
-      newNode->prev = this->tail;
-
-      if (this->tail) {
-        this->tail->next = newNode;
-      } else {
+      if (this->head == nullptr) {
         this->head = newNode;
+        this->tail = newNode;
+      } else {
+        this->tail->next = newNode;
+        this->tail = newNode;
       }
-      this->tail = newNode;
-
       ++this->size;
       return true;
     } catch (const std::bad_alloc &) {
@@ -91,7 +75,10 @@ public:
     }
 
     Node *currentNode = this->head;
+    Node *prevNode = nullptr;
+
     while (currentNode && currentNode->data != data) {
+      prevNode = currentNode;
       currentNode = currentNode->next;
     }
 
@@ -100,16 +87,14 @@ public:
       return false;
     }
 
-    if (currentNode->prev) {
-      currentNode->prev->next = currentNode->next;
+    if (prevNode) {
+      prevNode->next = currentNode->next;
     } else {
       this->head = currentNode->next;
     }
 
-    if (currentNode->next) {
-      currentNode->next->prev = currentNode->prev;
-    } else {
-      this->tail = currentNode->prev;
+    if (currentNode == this->tail) {
+      this->tail = prevNode;
     }
 
     delete currentNode;
@@ -158,11 +143,17 @@ public:
     this->tail = nullptr;
     this->size = 0;
   }
+
+private:
+  Node *head;
+  Node *tail;
+  int size;
+  int capacity;
 };
 
 int main() {
   try {
-    DoubleLinkedList list(5);
+    SingleLinkedList list(5);
 
     cout << "--- 从尾部依次添加 1,2,3,4,5,6 共 6 个元素 ---" << endl;
     list.addFromTail(1);

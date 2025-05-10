@@ -1,5 +1,3 @@
-package org.zida;
-
 class SinglyNode {
   public int data;
   public SinglyNode next;

@@ -1,5 +1,3 @@
-package org.zida;
-
 class DoubleNode {
   public int data;
   DoubleNode prev;
@@ -86,7 +84,7 @@ public class DoubleLinkedList {
   // 从尾节点添加元素
   int addNodeFromTail(int data) {
     if (this.isFull()) {
-      System.out.println("从头节点添加元素，当前链表已满，不能添加新元素。");
+     System.out.println("从尾节点添加元素，当前链表已满，不能添加新元素。");
       return 0;
     }
 
