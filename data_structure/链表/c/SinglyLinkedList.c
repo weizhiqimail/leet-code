@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// 单个结点
+// 单个节点
 typedef struct Node {
   int data;
   struct Node *next;
@@ -9,7 +9,7 @@ typedef struct Node {
 
 // 单链表的结构
 typedef struct SinglyLinkedList {
-  // 链表的首结点
+  // 链表的首节点
   Node *head;
   // 链表的大小（长度）
   int size;
@@ -49,20 +49,20 @@ int isEmpty(SinglyLinkedList *list) { return list->size == 0; }
 // 判断当前链表是否满了
 int isFull(SinglyLinkedList *list) { return list->size == list->capacity; }
 
-// 获取链表的头结点
+// 获取链表的头节点
 Node *getHeadNode(SinglyLinkedList *list) {
   if (isEmpty(list)) {
-    printf("当前链表为空。\n");
+    printf("获取链表的头节点，当前链表为空。\n");
     return NULL;
   }
 
   return list->head;
 }
 
-// 获取链表的尾结点
+// 获取链表的尾节点
 Node *getLastNode(SinglyLinkedList *list) {
   if (isEmpty(list)) {
-    printf("当前链表为空。\n");
+    printf("获取链表的尾节点，当前链表为空。\n");
     return NULL;
   }
 
@@ -73,16 +73,16 @@ Node *getLastNode(SinglyLinkedList *list) {
   return currentNode;
 }
 
-// 从头结点添加元素
+// 从头节点添加元素
 int addNodeFromHead(SinglyLinkedList *list, int data) {
   if (isFull(list)) {
-    printf("从头结点添加元素，当前链表已满，不能添加新元素。\n");
+    printf("从头节点添加元素，当前链表已满，不能添加新元素。\n");
     return 0;
   }
 
   Node *newNode = (Node *)malloc(sizeof(Node));
   if (!newNode) {
-    printf("从头结点添加元素，创建新结点时，申请内存失败。\n");
+    printf("从头节点添加元素，创建新节点时，申请内存失败。\n");
     return 0;
   }
 
@@ -93,16 +93,16 @@ int addNodeFromHead(SinglyLinkedList *list, int data) {
   return 1;
 }
 
-// 从尾结点添加元素
+// 从尾节点添加元素
 int addNodeFromTail(SinglyLinkedList *list, int data) {
   if (isFull(list)) {
-    printf("从尾结点添加元素，当前链表已满，不能添加新元素。\n");
+    printf("从尾节点添加元素，当前链表已满，不能添加新元素。\n");
     return 0;
   }
 
   Node *newNode = (Node *)malloc(sizeof(Node));
   if (!newNode) {
-    printf("从尾结点添加元素，创建新结点时，申请内存失败。\n");
+    printf("从尾节点添加元素，创建新节点时，申请内存失败。\n");
     return 0;
   }
   newNode->data = data;
@@ -119,10 +119,10 @@ int addNodeFromTail(SinglyLinkedList *list, int data) {
   return 1;
 }
 
-// 删除某个结点
+// 删除某个节点
 int removeNode(SinglyLinkedList *list, int data) {
   if (isEmpty(list)) {
-    printf("当前链表为空，不能删除结点。\n");
+    printf("当前链表为空，不能删除节点。\n");
     return 0;
   }
 
@@ -145,7 +145,7 @@ int removeNode(SinglyLinkedList *list, int data) {
     }
     currentNode = currentNode->next;
   }
-  printf("未找到值为 %d 的结点，删除失败。\n", data);
+  printf("未找到值为 %d 的节点，删除失败。\n", data);
   return 0;
 }
 
@@ -162,6 +162,10 @@ void freeList(SinglyLinkedList *list) {
     currentNode = currentNode->next;
     free(temp);
   }
+
+  list->head = NULL;
+  list->size = 0;
+
   free(list);
 }
 
@@ -182,23 +186,26 @@ void traverseList(SinglyLinkedList *list) {
 }
 
 int main() {
-  SinglyLinkedList *list = createSinglyLinkedList(10);
+  SinglyLinkedList *list = createSinglyLinkedList(5);
 
-  printf("---链表依次从尾结点开始，添加 1,2,3,4,5 共 5 个元素---\n");
+  printf("---链表依次从尾节点开始，添加 1,2,3,4,5,6 共 6 个元素---\n");
   addNodeFromTail(list, 1);
   addNodeFromTail(list, 2);
   addNodeFromTail(list, 3);
   addNodeFromTail(list, 4);
   addNodeFromTail(list, 5);
+  addNodeFromTail(list, 6);
   traverseList(list);
   printf("\n");
 
-  printf("---链表删除结点 4---\n");
+  printf("---链表删除节点 3,4,5---\n");
+  removeNode(list, 3);
   removeNode(list, 4);
+  removeNode(list, 5);
   traverseList(list);
   printf("\n");
 
-  printf("---链表依次从头结点开始，添加 6,7 共 2 个元素---\n");
+  printf("---链表依次从头节点开始，添加 6,7 共 2 个元素---\n");
   addNodeFromHead(list, 6);
   addNodeFromHead(list, 7);
   traverseList(list);
