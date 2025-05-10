@@ -90,6 +90,5 @@ coverage-final.json
 lcov.info
 
 # dev
-cmake-build-debug
 build
-*.exe
+cmake-build-debug
