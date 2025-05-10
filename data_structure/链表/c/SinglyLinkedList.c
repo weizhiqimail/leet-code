@@ -52,7 +52,6 @@ int isFull(SinglyLinkedList *list) { return list->size == list->capacity; }
 // 获取链表的头节点
 Node *getHeadNode(SinglyLinkedList *list) {
   if (isEmpty(list)) {
-    printf("获取链表的头节点，当前链表为空。\n");
     return NULL;
   }
 
@@ -60,9 +59,8 @@ Node *getHeadNode(SinglyLinkedList *list) {
 }
 
 // 获取链表的尾节点
-Node *getLastNode(SinglyLinkedList *list) {
+Node *getTailNode(SinglyLinkedList *list) {
   if (isEmpty(list)) {
-    printf("获取链表的尾节点，当前链表为空。\n");
     return NULL;
   }
 
@@ -108,7 +106,7 @@ int addNodeFromTail(SinglyLinkedList *list, int data) {
   newNode->data = data;
   newNode->next = NULL;
 
-  Node *lastNode = getLastNode(list);
+  Node *lastNode = getTailNode(list);
 
   if (lastNode) {
     lastNode->next = newNode;
@@ -149,10 +147,27 @@ int removeNode(SinglyLinkedList *list, int data) {
   return 0;
 }
 
+// 查找单链表元素
+Node *findNode(SinglyLinkedList *list, int data) {
+  if (isEmpty(list)) {
+    printf("当前链表为空，不能查找节点。\n");
+    return NULL;
+  }
+
+  Node *currentNode = list->head;
+
+  while (currentNode != NULL) {
+    if (currentNode->data == data) {
+      return currentNode;
+    }
+    currentNode = currentNode->next;
+  }
+  return NULL;
+}
+
 // 释放整个链表所有内存
 void freeList(SinglyLinkedList *list) {
   if (list == NULL) {
-    printf("当前链表为空，无需释放内存。\n");
     return;
   }
 
@@ -210,6 +225,15 @@ int main() {
   addNodeFromHead(list, 7);
   traverseList(list);
   printf("\n");
+
+  printf("---查找值为 1 的元素---\n");
+  Node *node1 = findNode(list, 1);
+  if (node1) {
+    printf("找到值为 1 的节点\n");
+    Node* node1NextNode = node1->next;
+    printf("节点 1 的下一个元素是 %d\n", node1NextNode->data);
+
+  }
 
   freeList(list);
 

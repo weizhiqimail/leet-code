@@ -129,7 +129,6 @@ int addNodeFromTail(DoubleLinkedList *list, int data) {
 // 删除某个节点
 int removeNode(DoubleLinkedList *list, int data) {
   if (isEmpty(list)) {
-    printf("当前链表为空，不能删除节点。\n");
     return 0;
   }
 
@@ -174,11 +173,29 @@ int removeNode(DoubleLinkedList *list, int data) {
   return 1;
 }
 
+// 查找双链表元素
+Node *findNode(DoubleLinkedList *list, int data) {
+  if (list == NULL) {
+    printf("当前链表为空，不能查找元素。\n");
+    return NULL;
+  }
+
+  Node *currentNode = list->head;
+
+  while (currentNode != NULL) {
+    if (currentNode->data == data) {
+      return currentNode;
+    }
+    currentNode = currentNode->next;
+  }
+  return NULL;
+}
+
 // 释放整个链表所有内存
 void freeList(DoubleLinkedList *list) {
   if (list == NULL) {
     printf("当前链表为空，无需释放内存。\n");
-    return;
+    return ;
   }
 
   Node *currentNode = list->head;
@@ -235,6 +252,14 @@ int main() {
   addNodeFromHead(list, 7);
   traverseList(list);
   printf("\n");
+
+  printf("---查找值为 1 的元素---\n");
+  Node *node1 = findNode(list, 1);
+  if (node1) {
+    printf("找到值为 1 的节点\n");
+    Node *node1NextNode = node1->next;
+    printf("节点 1 的下一个元素是 %d\n", node1NextNode->data);
+  }
 
   freeList(list);
 }
