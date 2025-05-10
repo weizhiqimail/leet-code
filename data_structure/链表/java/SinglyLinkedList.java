@@ -1,38 +1,32 @@
 package org.zida;
 
-class DoubleNode {
+class SinglyNode {
   public int data;
-  DoubleNode prev;
-  DoubleNode next;
+  public SinglyNode next;
 
-  public DoubleNode(int data) {
+  public SinglyNode(int data) {
     this.data = data;
-    this.prev = null;
     this.next = null;
   }
 
 }
 
-public class DoubleLinkedList {
-
-  public DoubleNode head;
-  public DoubleNode tail;
+public class SinglyLinkedList {
+  public SinglyNode head;
   public int size;
   public int capacity;
 
-  public DoubleLinkedList(int capacity) {
+  SinglyLinkedList(int capacity) {
     if (capacity <= 0) {
-      System.out.println("双链表的容量不能为空");
+      System.out.println("单链表的容量不能为空");
       this.capacity = 0;
-      this.size = 0;
       this.head = null;
-      this.tail = null;
+      this.size = 0;
       return;
     }
-    this.capacity = capacity;
-    this.size = 0;
     this.head = null;
-    this.tail = null;
+    this.size = 0;
+    this.capacity = capacity;
   }
 
   int getSize() {
@@ -51,12 +45,26 @@ public class DoubleLinkedList {
     return this.capacity == this.size;
   }
 
-  DoubleNode getHeadNode() {
+  SinglyNode getHeadNode() {
+    if (this.isEmpty()) {
+      System.out.println("获取链表的头节点，当前链表为空。");
+      return null;
+    }
     return this.head;
   }
 
-  DoubleNode getTailNode() {
-    return this.tail;
+  SinglyNode getTailNode() {
+    if (this.isEmpty()) {
+      System.out.println("获取链表的尾节点，当前链表为空。");
+      return null;
+    }
+
+    SinglyNode currentNode = this.head;
+
+    while (currentNode.next != null) {
+      currentNode = currentNode.next;
+    }
+    return currentNode;
   }
 
   // 从头节点添加元素
@@ -66,19 +74,10 @@ public class DoubleLinkedList {
       return 0;
     }
 
-    DoubleNode newNode = new DoubleNode(data);
-    newNode.prev = null;
+    SinglyNode newNode = new SinglyNode(data);
+
     newNode.next = this.head;
-
-    if (this.head != null) {
-      this.head.prev = newNode;
-    }
     this.head = newNode;
-
-    if (this.tail == null) {
-      this.tail = newNode;
-    }
-
     this.size++;
     return 1;
   }
@@ -86,70 +85,62 @@ public class DoubleLinkedList {
   // 从尾节点添加元素
   int addNodeFromTail(int data) {
     if (this.isFull()) {
-      System.out.println("从头节点添加元素，当前链表已满，不能添加新元素。");
+      System.out.println("从尾节点添加元素，当前链表已满，不能添加新元素。");
       return 0;
     }
 
-    DoubleNode newNode = new DoubleNode(data);
-    newNode.prev = this.tail;
+    SinglyNode newNode = new SinglyNode(data);
+
     newNode.next = null;
 
-    if (this.tail != null) {
-      this.tail.next = newNode;
-    }
-    this.tail = newNode;
+    SinglyNode lastNode = this.getTailNode();
 
-    if (this.head == null) {
+    if (lastNode != null) {
+      lastNode.next = newNode;
+    } else {
       this.head = newNode;
     }
-
     this.size++;
     return 1;
   }
 
-  // 删除节点
+  // 删除某个节点
   int removeNode(int data) {
     if (this.isEmpty()) {
-      System.out.println("当前链表为空，无需遍历。");
+      System.out.println("当前链表为空，不能删除节点。");
       return 0;
     }
 
-    DoubleNode currentNode = this.head;
+    SinglyNode currentNode = this.head;
 
-    while (currentNode != null && currentNode.data != data) {
+    if (currentNode.data == data) {
+      this.head = currentNode.next;
+      this.size--;
+      return 1;
+    }
+
+    while (currentNode != null && currentNode.next != null) {
+      if ( currentNode.next.data == data) {
+        currentNode.next = currentNode.next.next;
+        this.size--;
+        return 1;
+      }
+
       currentNode = currentNode.next;
     }
+    System.out.printf("未找到值为 %d 的节点，删除失败。\n", data);
+    return 0;
 
-    if (currentNode == null) {
-      System.out.printf("未找到值为 %d 的节点，删除失败。\n", data);
-      return 0;
-    }
-
-    // 说明是首结点
-    if (currentNode.prev == null) {
-      this.head = currentNode.next;
-    } else {
-      currentNode.prev.next = currentNode.next;
-    }
-
-    if (currentNode.next == null) {
-      this.tail = currentNode.prev;
-    } else {
-      currentNode.next.prev = currentNode.prev;
-    }
-
-    this.size--;
-    return 1;
   }
 
   // 查找节点
-  DoubleNode findNode(int data) {
+  SinglyNode findNode(int data) {
     if (this.isEmpty()) {
       System.out.println("当前链表为空，不能查找元素。");
       return null;
     }
 
-    DoubleNode currentNode = this.head;
+    SinglyNode currentNode = this.head;
     while (currentNode != null) {
       if (currentNode.data == data) {
         return currentNode;
@@ -159,7 +150,6 @@ public class DoubleLinkedList {
     return null;
   }
 
-
   // 遍历链表
   void traverse() {
     if (this.isEmpty()) {
@@ -167,7 +157,7 @@ public class DoubleLinkedList {
       return;
     }
 
-    DoubleNode currentNode = this.head;
+    SinglyNode currentNode = this.head;
     System.out.printf("开始遍历链表：[ ");
     while (currentNode != null) {
       System.out.printf("%d ", currentNode.data);
@@ -175,5 +165,9 @@ public class DoubleLinkedList {
     }
     System.out.printf("] 长度: %d\n", this.size);
   }
-
 }
+
+
+
+
+
