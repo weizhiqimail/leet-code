@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <windows.h>
 
 void swap(int *a, int *b) {
   int temp = *a;
@@ -67,6 +68,10 @@ int binarySearchForLoop2(int arr[], int len, int target) {
 }
 
 int main() {
+  // 设置控制台输出为 UTF-8
+  SetConsoleOutputCP(CP_UTF8);
+
+
   int arr[] = {1, 4, 5, 9, 10, 12, 15, 18, 20, 23};
   int len = sizeof(arr) / sizeof(arr[0]);
 

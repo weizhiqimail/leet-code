@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <windows.h>
+
 
 void swap(int *a, int *b) {
   int temp = *a;
@@ -55,6 +57,10 @@ void bubbleSort(int arr[], int len) {
 }
 
 int main() {
+  // 设置控制台输出为 UTF-8
+  SetConsoleOutputCP(CP_UTF8);
+
+
   int arr[] = {64, 34, 25, 12, 22, 11, 90};
   int len = sizeof(arr) / sizeof(arr[0]);
 
